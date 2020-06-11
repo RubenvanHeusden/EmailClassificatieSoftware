@@ -45,11 +45,10 @@ class TFIDFClassifier:
         trains a model with data loaded from a csv file where the columns specifying the text and labels
         are arguments to the function
 
-    train_from_strings
-        trains a model from an input list of tuples where each tuple specifies a data point
+    train_from_strings(train_data)
+        trains a model from an input list 'train_data' of tuples where each tuple specifies a data point
 
-    classify_from_file(classification_data_path, text_col_name, label_col_name,
-                        delimiter, quotechar)
+    classify_from_file(classification_data_path, text_col_name, label_col_name, delimiter, quotechar)
         classifies examples from a csv file with the trained classifier, where the column with the text
         to be classified is selected with the text_col_name parameter
 
