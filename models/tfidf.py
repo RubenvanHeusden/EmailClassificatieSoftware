@@ -62,16 +62,19 @@ class TFIDFClassifier:
 
     """
     def __init__(self, do_lowercase: bool = True, string_encoding: str = 'utf-8',
-                 custom_tokenizer=None, n_grams=(1, 1), verbose_training: bool = False):
+                 custom_tokenizer=None, custom_preprocessor=None, n_grams=(1, 1), verbose_training: bool = False):
         """
         :param do_lowercase: boolean specifying whether text should be automatically converted to lowercase
         :param string_encoding: specifying the encode to use when reading in text. default = 'utf-8'
         :param custom_tokenizer: if not None, a callable that takes string input and returns a list of tokens
+        :param custom_preprocessor: of not None, a callable that takes string input and return a string
+        processed in some way. (see the examples folder for example use-cases)
         :param n_grams: a tuple specifying the ngrams range used. default is ()
         """
         self._name = "TFIDF"
         self.classifier = Pipeline([('tfidf', TfidfVectorizer(lowercase=do_lowercase,
                                                               encoding=string_encoding,
+                                                              preprocessor=custom_preprocessor,
                                                               tokenizer=custom_tokenizer,
                                                               ngram_range=n_grams)),
                                     ('svc', LinearSVC(verbose=verbose_training))])

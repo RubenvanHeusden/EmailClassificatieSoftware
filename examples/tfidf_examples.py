@@ -42,3 +42,22 @@ print(classifier.classify_from_strings(example_sentence))
 # reading from a file.
 
 classifier.score(test_data_path="../test_data/test.csv", verbose=3)
+
+# Although training an TF-IDF + SVM model is usually quite quick, this module does have the option
+# of saving and loading a trained model.
+
+# First we create a model and train it on the data
+
+new_classifier = TFIDFClassifier(verbose_training=False)
+
+new_classifier.train_from_file("../test_data/train.csv")
+
+# We will now save the trained model
+new_classifier.save_model("../saved_models/tfidf-classifier.joblib")
+
+# now we can load the model again and do some more classification
+
+new_classifier.load_model("../saved_models/tfidf-classifier.joblib")
+
+print(classifier.classify_from_strings("Ik vind dit echt een slechte film"))
+

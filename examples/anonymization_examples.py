@@ -5,6 +5,7 @@ function.
 """
 
 from msc.anonymizer import Anonymizer
+from models.tfidf import TFIDFClassifier
 
 # First we create an instance of the Anonymizer class
 
@@ -28,12 +29,16 @@ print(anonymizer_class.anonymize_string(example_sentence))
 data_file = "../test_data/train.csv"
 print(anonymizer_class.anonymize_file(data_file))
 
-# Although the above function is adequate for most use cases, it can be quite slow for large files.
-# for these cases the anonymize_parallel function can be used to speed up this process.
-# PLEASE NOTE THAT THIS FUNCTION IS EXPERIMENTAL AND NOT THOROUGHLY TESTED, UNEXPECTED ERRORS MAY OCCUR
+# Although the Anonymizer is fully functional as a standalone class, it can also be used in combination with
+# Most of the models in this module. As an example, we can use the 'anonymize_string' method of the anonymizer
+# in the preprocessing step of the TF-IDF classifier to filter the emails before they get fed into the
+# classifier
 
-# For this function to work on Windows it is important that the anonymization happens in a separate Python file
-# and it should be called in the following way:
+classifier = TFIDFClassifier(custom_preprocessor=anonymizer_class.anonymize_string)
+path_to_data = "../test_data/train.csv"
+classifier.train_from_file(path_to_data, text_col_name='text', label_col_name="label")
+classifier.score("../test_data/test.csv", verbose=1)
 
-# if __name__ == "__main__":
-#     anonymizer_class._anonymize_parallel(file_name=data_file)
+# It is however recommended that for large files, the anonymization is
+# done once and the results stored in a separate file because the process is quite time consuming for large
+# files

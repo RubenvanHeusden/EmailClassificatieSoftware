@@ -18,9 +18,7 @@ did not have a significant impact on the results of the models used in this rese
 """
 
 import spacy
-import numpy as np
 import pandas as pd
-from multiprocessing import Pool
 
 
 class Anonymizer:
@@ -42,13 +40,6 @@ class Anonymizer:
 
     anonymize_file(file_name, delimiter, quotechar, text_col_name)
         convenience method to anonymize all the text entries in a file.
-
-    _splitted_apply(df)
-        function that is used by the anonymize_parallel function to split a subset of a dataframe
-
-    _anonymize_parallel
-        Experimental function that can be used to parallelize the anonymization of a csv file.
-        please carefully study the example script for this before using this function.
 
     get_replacement_string
         return the string currently set as the replacement string for named entities
@@ -93,51 +84,6 @@ class Anonymizer:
         csv_file = pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)
         unfiltered_text = csv_file[text_col_name]
         filtered_text = unfiltered_text.apply(self.anonymize_string)
-        csv_file[text_col_name] = filtered_text
-        return csv_file
-
-    def _splitted_apply(self, df):
-        """
-        :param df: (part of) a dataframe that is anonymized. this is used by the (experimental) anonymize_parallel
-        function.
-        :return: anonymized (subset) of the input dataframe
-        """
-        return df.apply(self.anonymize_string)
-
-    def _anonymize_parallel(self, file_name, delimiter: str = ",", quotechar: str = '"', text_col_name: str = "text",
-                            num_cores: int = 4) -> pd.DataFrame:
-
-        """
-
-        THIS FUNCTION IS AN EXPERIMENTAL FUNCTION FOR SPEEDING UP FILE ANONYMIZATION
-        (FOR NOW) IT IS HIGHLY RECOMMENDED TO USE THE SINGLE PROCESS 'anonymize_file'
-        FUNCTION INSTEAD. FOR DETAILS ON ITS USE PLEASE SEE THE EXAMPLE SCRIPT IN THE
-        EXAMPLES FOLDER.
-
-        :param file_name: string specifying the name of the csv file which contains the data to
-        be anonymized.
-
-        :param delimiter: the delimiter used for the reading of the csv file, default is ','
-
-        :param quotechar: the quotation character used by the csv reader, default is '"'
-
-        :param text_col_name: string signifying the name of the column in the csv file containing
-        the text that is te be anonymized.
-
-        :param num_cores: integer specifying the number of cores when anonymizing the data.
-        the default is 1, meaning the algorithm uses only a single core
-
-        :return csv_file: returns the pandas DataFrame as specified by the filename parameter
-        with the text column anonymized.
-        """
-        csv_file = pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)
-        unfiltered_text = csv_file[text_col_name]
-        splitted_text_col = np.array_split(unfiltered_text, num_cores)
-
-        pool = Pool(num_cores)
-        filtered_text = pd.concat(pool.map(self._splitted_apply, splitted_text_col))
-        pool.close()
-        pool.join()
         csv_file[text_col_name] = filtered_text
         return csv_file
 
