@@ -35,7 +35,7 @@ class TrainTestSplitter:
 
     @staticmethod
     def stratify_file(file_path: str, delimiter: str = ",", quotechar: str = '"', text_col_name: str = "text",
-                      label_col_name: str = 'label', train_portion: int = 0.7) -> Tuple[pd.DataFrame, pd.DataFrame]:
+                      label_col_name: str = 'label', train_portion: float = 0.7) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         :param file_path: string specifying the path where the datafile is located
 
@@ -64,7 +64,7 @@ class TrainTestSplitter:
 
     @staticmethod
     def _stratify(dataframe: pd.DataFrame, text_col_name: str, label_col_name: str,
-                  train_portion: int = 0.7) \
+                  train_portion: float = 0.7) \
             -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         :param dataframe: dataframe to be split containing all the datapoints
@@ -88,7 +88,7 @@ class TrainTestSplitter:
 
     def reshuffle(self, train_file_path: str, test_file_path: str, delimiter: str = ",", quotechar: str = '"',
                   text_col_name: str = 'text', label_col_name: str = "label",
-                  train_portion: int = 0.7) -> Tuple[pd.DataFrame, pd.DataFrame]:
+                  train_portion: float = 0.7) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         This method can be used to 'reshuffle' existing train and test files when they already exist
         but a different distribution is required. This can be useful when the distribution of labels in one
