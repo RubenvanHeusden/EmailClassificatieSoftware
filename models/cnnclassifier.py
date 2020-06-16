@@ -294,7 +294,3 @@ class CNNClassifier:
         assert filename.split(".")[-1] == "pt"
         self.model.load_state_dict(torch.load(filename))
         return None
-
-
-classifier = CNNClassifier(num_outputs=2)
-classifier.train_from_file('../test_data/train.csv', batch_size=2, num_epochs=5)
