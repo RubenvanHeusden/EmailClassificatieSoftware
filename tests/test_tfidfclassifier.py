@@ -1,6 +1,7 @@
 import os
 import sklearn
 import unittest
+from configurations import ROOT_DIR
 from models.tfidf import TFIDFClassifier
 
 
@@ -9,7 +10,7 @@ class TestTFIDFClassifier(unittest.TestCase):
         self.classifier = TFIDFClassifier()
 
     def test_file_training(self) -> None:
-        self.classifier.train_from_file(train_data_path="../test_data/train.csv")
+        self.classifier.train_from_file(train_data_path=ROOT_DIR+"/test_data/train.csv")
         sklearn.utils.validation.check_is_fitted(self.classifier.classifier['svc'])
 
     def test_string_or_list_training(self) -> None:
@@ -23,8 +24,8 @@ class TestTFIDFClassifier(unittest.TestCase):
             self.classifier.train_from_strings(incorrect_list)
 
     def test_file_classification(self) -> None:
-        self.classifier.train_from_file(train_data_path="../test_data/train.csv")
-        predictions = self.classifier.classify_from_file("../test_data/test.csv")
+        self.classifier.train_from_file(train_data_path=ROOT_DIR+"/test_data/train.csv")
+        predictions = self.classifier.classify_from_file(ROOT_DIR+"/test_data/test.csv")
         self.assertEqual(len(predictions), 2)
 
     def test_string_or_list_classification(self) -> None:
@@ -34,15 +35,15 @@ class TestTFIDFClassifier(unittest.TestCase):
         self.classifier.classify_from_strings(sample_point)
 
     def test_scoring(self) -> None:
-        self.classifier.train_from_file(train_data_path="../test_data/train.csv")
-        self.classifier.score("../test_data/test.csv")
+        self.classifier.train_from_file(train_data_path=ROOT_DIR+"/test_data/train.csv")
+        self.classifier.score(ROOT_DIR+"/test_data/test.csv")
 
     def test_model_saving(self) -> None:
-        self.classifier.save_model("../test_data/model.joblib")
+        self.classifier.save_model(ROOT_DIR+"/test_data/model.joblib")
 
     def test_model_loading(self) -> None:
-        self.classifier.save_model("../test_data/model.joblib")
-        self.classifier.load_model("../test_data/model.joblib")
+        self.classifier.save_model(ROOT_DIR+"/test_data/model.joblib")
+        self.classifier.load_model(ROOT_DIR+"/test_data/model.joblib")
 
     def test_inccorect_model_name_save(self):
         name = "model.jobli"
@@ -55,5 +56,5 @@ class TestTFIDFClassifier(unittest.TestCase):
             self.classifier.load_model(name)
 
     def tearDown(self) -> None:
-        if os.path.exists("../test_data/model.joblib"):
-            os.remove("../test_data/model.joblib")
+        if os.path.exists(ROOT_DIR+"/test_data/model.joblib"):
+            os.remove(ROOT_DIR+"/test_data/model.joblib")

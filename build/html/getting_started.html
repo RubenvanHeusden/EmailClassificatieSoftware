@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started &#8212; EmailClassificatie 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TF-IDF Classifier" href="models/tfidf.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>The EmailClassificatieSoftware package contains several implementations of current state-of-the-art
+algorithms for text classification, adapted for use with the Dutch language. The main usage of this
+is for either training one of the algorithms in the package from scratch for a new dataset or task,
+or as part of another tool where pretrained models can be loaded and easily used for classification.</p>
+<div class="section" id="training-a-simple-classifier-from-scratch">
+<h2>Training a simple classifier from scratch<a class="headerlink" href="#training-a-simple-classifier-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>To show the main features of this package we will start by training a simple TF-IDF classifier from scratch.
+All the models in this package expect to receive data either from csv files or directly from a list of strings.
+If you already have a dataset splitted into a train and test set you can use these directly by giving
+the path of files to the model when creating it. However, if you do not already have separate train and test files
+but do have a csv file containing the text you want to classify and the appropriate labels for these pieces of text,
+you can use the TrainTestSplitter class from msc folder to automatically create these for you.(See the documentation
+of the TrainTestSplitter for more information on this).</p>
+<p>First we will import the TFIDF classifier into our script and create and instance of it that we will use for classification
+<code class="docutils literal notranslate"><span class="pre">classifier</span> <span class="pre">=</span> <span class="pre">TFIDFClassifier(verbose_training=False)</span></code></p>
+<p>here the `` verbose_training=False`` indicates that we don’t want to see intermediate statistics of training, this can be
+quite a lot of text, so we will turn it off for this example.</p>
+<p>Now that we have created a classifier, it is time to train the model on a dataset!</p>
+<p>To do this we can simple specify the path to to our file with train data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">classifier.train_from_file('test_data/train.csv',</span> <span class="pre">text_col_name='text',</span> <span class="pre">label_col_name=&quot;label&quot;)</span></code></p>
+<p>Here the ‘text_col_name’ and ‘label_col_name’ indication the name of the header of the column in the csv file
+containing the text and the labels respectively.</p>
+<p>Now that we have trained our classifier we can start classifying some inputs!</p>
+<p>To do this we can simply call <code class="docutils literal notranslate"><span class="pre">classifier.classify_from_strings(&quot;Een</span> <span class="pre">stukje</span> <span class="pre">tekst</span> <span class="pre">voor</span> <span class="pre">classificatie&quot;)</span></code>.</p>
+</div>
+<div class="section" id="loading-and-saving-models">
+<h2>Loading and saving models<a class="headerlink" href="#loading-and-saving-models" title="Permalink to this headline">¶</a></h2>
+<p>And that’s it! we have trained simple TFIDF classifier, classified an example and saved the model for later use.
+The other models in this module also follow the same workflow, so they can be trained in much the same way as
+the TF-IDF classifier.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EmailClassificatie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#training-a-simple-classifier-from-scratch">Training a simple classifier from scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-and-saving-models">Loading and saving models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models/tfidf.html">TF-IDF Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/pretrainedbert.html">Pretrained BERT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="models/tfidf.html" title="next chapter">TF-IDF Classifier</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ruben van Heusden.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/getting_started.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,4 +1,5 @@
 import unittest
+from configurations import ROOT_DIR
 from torchtext.data import Field, Iterator
 from code_utils.csvdataset import CSVDataset
 from code_utils.dataiterator import DataIterator
@@ -7,7 +8,7 @@ from code_utils.dataiterator import DataIterator
 class TestDataIterator(unittest.TestCase):
     def setUp(self) -> None:
         text_field = Field()
-        self.dataset = CSVDataset(text_field, file_name='../test_data/train.csv').load()
+        self.dataset = CSVDataset(text_field, file_name=ROOT_DIR+'/test_data/train.csv').load()
         self.dataset.fields['text'].build_vocab(self.dataset)
         self.dataset.fields['label'].build_vocab(self.dataset)
         self.iterator = DataIterator(Iterator(self.dataset, batch_size=1))

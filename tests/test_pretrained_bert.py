@@ -1,5 +1,5 @@
 import unittest
-from models.pretrainedbert import PretrainedBert
+from models.pretrainedbert import PretrainedBERT
 
 
 class TestPretrainedBert(unittest.TestCase):

@@ -1,17 +1,23 @@
 """
 This file contains several utility functions used by the other scripts in this module
 """
-
 import os
 import torch
 import tarfile
 import pandas as pd
 from tqdm import tqdm
 from configurations import ROOT_DIR
-from urllib.request import urlretrieve
+from urllib.request import urlretrieve, urlopen
 from torch.utils.tensorboard import SummaryWriter
 from sklearn.utils.class_weight import compute_class_weight
 from sklearn.metrics import f1_score, recall_score, precision_score
+
+
+class TqdmUpTo(tqdm):
+    def update_to(self, b=1, bsize=1, tsize=None):
+        if tsize is not None:
+            self.total = tsize
+        self.update(b * bsize - self.n)
 
 
 def generic_training(model, criterion, optimizer, scheduler, dataset, n_epochs=5, device=torch.device("cpu"),
@@ -117,10 +123,24 @@ def single_task_class_weighting(dataset):
     return torch.from_numpy(weights).float()
 
 
+# def download_word_embeddings_nl(path='resources/word_embeddings/'):
+#     print('Beginning file download with urllib2...')
+#     url = 'https://www.clips.uantwerpen.be/dutchembeddings/combined-320.tar.gz'
+#     file_tmp = urlretrieve(url, filename=None)[0]
+#     base_name = os.path.basename(url)
+#     file_name, file_extension = os.path.splitext(base_name)
+#     tar = tarfile.open(file_tmp)
+#     tar.extractall(ROOT_DIR+'/resources/word_embeddings/'+file_name)
+#
+
 def download_word_embeddings_nl(path='resources/word_embeddings/'):
-    print('Beginning file download with urllib2...')
+    print('--- Beginning word embedding file download ---')
     url = 'https://www.clips.uantwerpen.be/dutchembeddings/combined-320.tar.gz'
-    file_tmp = urlretrieve(url, filename=None)[0]
+    with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1,
+                  desc=url.split('/')[-1]) as t:
+        file_tmp = urlretrieve(url, filename=None, reporthook=t.update_to)[0]
+        t.total = t.n
+
     base_name = os.path.basename(url)
     file_name, file_extension = os.path.splitext(base_name)
     tar = tarfile.open(file_tmp)

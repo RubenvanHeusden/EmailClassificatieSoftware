@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splitting Into Train and Test files &#8212; EmailClassificatie 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TF-IDF Classifier" href="../models/tfidf.html" />
+    <link rel="prev" title="Anonymizing Text" href="anonymization.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="splitting-into-train-and-test-files">
+<h1>Splitting Into Train and Test files<a class="headerlink" href="#splitting-into-train-and-test-files" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">msc.traintestsplitter.</code><code class="sig-name descname">TrainTestSplitter</code></dt>
+<dd><p>This class implements several functions to stratify a dataset, either by creating splits from
+one datafile are by combining and reshuffling the existing train and test file</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">stratify_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em>, <em class="sig-param"><span class="n">delimiter</span></em>, <em class="sig-param"><span class="n">quotechar</span></em>, <em class="sig-param"><span class="n">text_col_name</span></em>, <em class="sig-param"><span class="n">label_col_name</span></em><span class="sig-paren">)</span></dt>
+<dd><p>Method that can be used to read in an existing file and split it into
+train and test files with a stratification strategy to keep the distributions of
+labels between the two files as similar as possible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">_stratify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">text_col_name</span></em>, <em class="sig-param"><span class="n">label_col_name</span></em><span class="sig-paren">)</span></dt>
+<dd><p>Method that handles the stratificaton of a dataframe and splits it into two parts,
+this method is used by the ‘stratify_file’ and the ‘reshuffle’ methods under the hood.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">reshuffle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_file_path</span></em>, <em class="sig-param"><span class="n">test_file_path</span></em>, <em class="sig-param"><span class="n">delimiter</span></em>, <em class="sig-param"><span class="n">quotechar</span></em>, <em class="sig-param"><span class="n">text_col_name</span></em>, <em class="sig-param"><span class="n">label_col_name</span></em>, <em class="sig-param"><span class="n">shuffle_strategy</span></em><span class="sig-paren">)</span></dt>
+<dd><p>This methods reads in existing train and test files and reshuffles them so that they are stratified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">reshuffle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">test_file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">train_portion</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">, </span>pandas.core.frame.DataFrame<span class="p">]</span></dt>
+<dd><p>This method can be used to ‘reshuffle’ existing train and test files when they already exist
+but a different distribution is required. This can be useful when the distribution of labels in one
+of the two files is significantly different from that of the other file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_file_path</strong> – string specifying the the name of the file where the training set is located</p></li>
+<li><p><strong>test_file_path</strong> – string specifying the name of the file where the test set is located</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter used in the csv file, this is used by the csv reader</p></li>
+<li><p><strong>quotechar</strong> – string indicating the character used for quoting</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the header of the text column, defaults to ‘text’</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the header of the label column, defaults to ‘label’</p></li>
+<li><p><strong>train_portion</strong> – integer indicating the percentage of the total dataset that is used for training         the test set size is set to (1-train_portoin), default is 0.7.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns a tuple of two dataframes wher the first is the train dataframe and the second         is the test dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">stratify_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">train_portion</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">, </span>pandas.core.frame.DataFrame<span class="p">]</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – string specifying the path where the datafile is located</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter used in the csv file, this is used by the csv reader</p></li>
+<li><p><strong>quotechar</strong> – string indicating the character used for quoting</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the header of the text column, defaults to ‘text’</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the header of the label column, defaults to ‘label’</p></li>
+<li><p><strong>train_portion</strong> – integer indicating the percentage of the total dataset that is used for training the test set size is set to (1-train_portoin), default is 0.7.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns a tuple of two dataframes wher the first is the train dataframe and the second is the test dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">EmailClassificatie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anonymization.html">Anonymizing Text</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Splitting Into Train and Test files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/tfidf.html">TF-IDF Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/pretrainedbert.html">Pretrained BERT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="anonymization.html" title="previous chapter">Anonymizing Text</a></li>
+      <li>Next: <a href="../models/tfidf.html" title="next chapter">TF-IDF Classifier</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ruben van Heusden.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/msc/traintestsplitting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

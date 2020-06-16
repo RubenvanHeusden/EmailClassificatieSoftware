@@ -1,4 +1,5 @@
 import unittest
+from configurations import ROOT_DIR
 from msc.anonymizer import Anonymizer
 
 
@@ -12,7 +13,7 @@ class TestAnonymizer(unittest.TestCase):
         self.assertEqual(output, "hallo mijn naam is ")
 
     def test_correct_file_anom(self):
-        self.anonymizer_class.anonymize_file("../test_data/train.csv")
+        self.anonymizer_class.anonymize_file(ROOT_DIR+"/test_data/train.csv")
 
     def test_different_replacement_string(self):
         self.anonymizer_class.set_replacement_string("XXX")

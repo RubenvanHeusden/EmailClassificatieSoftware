@@ -51,7 +51,7 @@ class Anonymizer:
         """
         :param replacement_string: string that is used to replace any Named Entity found
         """
-        self.nlp_model = spacy.load('nl')
+        self.nlp_model = spacy.load('nl_core_news_sm')
         self.replacement_string = replacement_string
 
     def anonymize_string(self, string: str) -> str:
@@ -68,18 +68,12 @@ class Anonymizer:
                        text_col_name: str = "text") -> pd.DataFrame:
 
         """
-        :param file_name: string specifying the name of the csv file which contains the data to
-        be anonymized.
-
+        :param file_name: string specifying the name of the csv file which contains the data to be anonymized.
         :param delimiter: the delimiter used for the reading of the csv file, default is ','
-
         :param quotechar: the quotation character used by the csv reader, default is '"'
+        :param text_col_name: string signifying the name of the column in the csv file containing the text that is te be anonymized.
+        :return csv_file: returns the pandas DataFrame as specified by the filename parameter with the text column anonymized.
 
-        :param text_col_name: string signifying the name of the column in the csv file containing
-        the text that is te be anonymized.
-
-        :return csv_file: returns the pandas DataFrame as specified by the filename parameter
-        with the text column anonymized.
         """
         csv_file = pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)
         unfiltered_text = csv_file[text_col_name]

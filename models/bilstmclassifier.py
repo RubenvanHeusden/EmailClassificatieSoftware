@@ -3,13 +3,13 @@ This file contains the implementation of the BiLSTM Classifier class. This class
 class around the BiLSTM model, handling the loading of the datafiles and the setting up of the training
 procedure.
 """
-
 import torch
 import torchtext
 import torch.nn as nn
 import torch.optim as optim
 from typing import List, Union
 from models.bilstm import BiLSTM
+from configurations import ROOT_DIR
 from torch.optim.lr_scheduler import StepLR
 from code_utils.csvdataset import CSVDataset
 from code_utils.dataloader import CustomDataLoader
@@ -92,7 +92,8 @@ class BiLSTMClassifier:
     """
 
     def __init__(self, num_outputs, hidden_dim=256, device=torch.device("cuda" if torch.cuda.is_available() else "cpu"),
-                 word_embedding_path: str = '../resources/word_embeddings/combined-320.tar/320/', max_seq_len=None):
+                 word_embedding_path: str = ROOT_DIR+'/resources/word_embeddings/combined-320.tar/320/',
+                 max_seq_len=None):
         """
         :param num_outputs: integer specifying the number of outputs of the model, when unknown in advance,
         this can be retrieved by using the 'get_num_labels_from_file' method
@@ -106,6 +107,7 @@ class BiLSTMClassifier:
         # Load in the vectors when they are not already present in the package
         if not embeddings_available():
             download_word_embeddings_nl(path=word_embedding_path)
+            print("--- Constructing the Pytorch embedding matrix file ---")
             torchtext.vocab.Vectors('combined-320.txt', cache=word_embedding_path)
 
         vocab_data = torch.load(word_embedding_path+"combined-320.txt.pt")
@@ -117,7 +119,7 @@ class BiLSTMClassifier:
         self.model = BiLSTM(vocab=torch.zeros(size=(1, 1)), hidden_dim=hidden_dim, output_dim=num_outputs,
                             device=device)
 
-        self._TEXT = Field(lower=True, tokenize="spacy", tokenizer_language="nl", include_lengths=True,
+        self._TEXT = Field(lower=True, tokenize="spacy", tokenizer_language="nl_core_news_sm", include_lengths=True,
                            batch_first=True, fix_length=max_seq_len)
 
         self.num_outputs = num_outputs
@@ -130,31 +132,23 @@ class BiLSTMClassifier:
 
     def train_from_file(self, file_name: str, batch_size: int, num_epochs: int, delimiter: str = ",",
                         quotechar: str = '"', text_col_name: str = 'text', label_col_name='label', learning_rate=1.0,
-                        logging_dir: str = '../runs/') -> None:
+                        logging_dir: str = ROOT_DIR+'/runs/') -> None:
         """
         :param file_name: string specifying the location and name of the file that contains the training dat
-
-        :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into the
+        :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into the \
         model this can be set lower if memory issues occur
-
         :param num_epochs: integer specifying the number of epochs for which the model is trained. The right amount of
         epochs can differ for different datasets and it is recommended to inspect the produced TensorBoard logs
         to see if the model has converged
-
         :param delimiter: string specifying the delimiter used in the training csv file
-
         :param quotechar: string specifying the quotechar used in the training csv file
-
-        :param text_col_name: string specifying the name of the column containing the mails
-        in the csv file
-
-        :param label_col_name: string specifying the name of the column containing the labels of the mails
-        in the csv file
-
-        :param learning_rate: float specifying the learning rate of the model, this can affect the speed of convergence
-        of the model
-
+        :param text_col_name: string specifying the name of the column containing the mails in the csv file
+        :param label_col_name: string specifying the name of the column containing the labels of the mails in \
+        the csv file
+        :param learning_rate: float specifying the learning rate of the model, this can affect the speed of \
+        convergence of the model
         :param logging_dir: directory to which the Tensorboard logging files are saved
+
         """
         print("--- Starting with reading in the dataset ---")
         dataset_loader = CSVDataset(text_field=self._TEXT, file_name=file_name)
@@ -191,22 +185,15 @@ class BiLSTMClassifier:
         of the file. Throws an error when the model is not trained.
 
         :param file_name: string specifying the location and name of the file that contains the training dat
-
         :param delimiter: string specifying the delimiter used in the training csv file
-
         :param quotechar: string specifying the quotechar used in the training csv file
-
-        :param text_col_name: string specifying the name of the column containing the mails
-        in the csv file
-
-        :param label_col_name: string specifying the name of the column containing the labels of the mails
-        in the csv file
-
-        :param batch_size: integer specifying the batch size, this will affect the size of the batches fed
-        into the model this can be set lower if memory issues occur
-
-        :return: returns a list of results, where the result indices from the model have been converted back
-        to the original class names from the file
+        :param text_col_name: string specifying the name of the column containing the mails in the csv file
+        :param label_col_name: string specifying the name of the column containing the labels of the mails in the \
+         csv file
+        :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into \
+        the model this can be set lower if memory issues occur
+        :return: returns a list of results, where the result indices from the model have been converted back \
+         to the original class names from the file
         """
         assert self.has_trained
 
@@ -233,8 +220,7 @@ class BiLSTMClassifier:
 
     def classify_from_strings(self, strings: Union[List[str], str]) -> list:
         """
-        :param strings: a single string or a list of strings representing the pieces of text that
-        should be classified
+        :param strings: a single string or a list of strings representing the pieces of text that should be classified
         :return: list containing the predictions of the models for the inputted pieces of text
         """
         assert self.has_trained
@@ -266,19 +252,13 @@ class BiLSTMClassifier:
               label_col_name: str = 'label', batch_size: int = 64) -> None:
         """
         :param file_name: string specifying the location and name of the file that contains the training dat
-
         :param delimiter: string specifying the delimiter used in the training csv file
-
         :param quotechar: string specifying the quotechar used in the training csv file
-
-        :param text_col_name: string specifying the name of the column containing the mails
+        :param text_col_name: string specifying the name of the column containing the mails in the csv file
+        :param label_col_name: string specifying the name of the column containing the labels of the mails \
         in the csv file
-
-        :param label_col_name: string specifying the name of the column containing the labels of the mails
-        in the csv file
-
-        :param batch_size: integer specifying the batch size, this will affect the size of the batches fed
-        into the model this can be set lower if memory issues occur
+        :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into \
+         the model this can be set lower if memory issues occur
         """
         assert self.has_trained
         print("Evaluating model")
