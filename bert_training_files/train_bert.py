@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
 import glob
 import json
 import logging
@@ -25,10 +24,9 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler, TensorDataset
 from torch.utils.data.distributed import DistributedSampler
-from torch.optim import SGD
 from tqdm import tqdm, trange
 from scipy.stats import pearsonr, spearmanr
-from sklearn.metrics import matthews_corrcoef, f1_score, recall_score, precision_score
+from sklearn.metrics import f1_score, recall_score, precision_score
 
 from bert_training_files.bert_utils import glue_convert_examples_to_features as convert_examples_to_features
 from bert_training_files.bert_utils import email_classification_output_modes as output_modes
@@ -36,7 +34,6 @@ from bert_training_files.bert_utils import email_processor as processors
 
 from transformers import (
     WEIGHTS_NAME,
-    AdamW,
     AdamW,
     BertConfig,
     BertForSequenceClassification,

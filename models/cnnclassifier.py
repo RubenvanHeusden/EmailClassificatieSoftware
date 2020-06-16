@@ -67,7 +67,6 @@ class CNNClassifier:
             integer representation used in training back to the original labels for easier interpretation
 
 
-
     Methods
     -------
         train_from_file(file_name, batch_size, num_epochs, delimiter, quotechar, text_col_name, label_col_name,

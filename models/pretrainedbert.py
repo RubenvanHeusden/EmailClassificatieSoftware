@@ -38,6 +38,36 @@ class PretrainedBERT:
     _class_labels
         labels that are used in this specific research, the labels should match the labels present in the
         dataset
+
+
+    Methods
+    -------
+    train_from_file(path_to_datadir, max_seq_len, output_dir, tensorboard_dir, do_eval)
+        This method acts as a wrapper around the training script in 'bert_training_files'
+        and can be used to fine-tune a BERT model pre-trained on the Dutch Language.
+        For simplicity most of the arguments from the 'train_bert.py' file have been set to their
+        default values.
+
+    classify_from_strings(text_string)
+        Method that can be used to classify a string or a list of strings with the BERT Model.
+        This does require that the model used for classification is first loaded via the
+        'load_model' method
+
+    classify_from_file(file_name, delimiter, quotechar, text_col_name, batch_size)
+        this can be used to classify the contents of a file. For this the model used for classification
+        has to be loaded using the 'load_model' method
+
+    classify_batches(list_of_examples)
+        this can be used to classify a list of examples in batches, useful for large lists \
+         For this the model used for classification has to be loaded using the 'load_model' method
+
+    load_model(path_to_saved_model)
+        This method can be used to load a model from the directory create by the 'train_from_file' method.
+        By loading this it can be used for further tasks such as classification or further training.
+
+
+
+
     """
     def __init__(self, use_gpu: bool = False, path_to_data: str = ROOT_DIR+"/data/train.csv"):
         """
@@ -56,8 +86,8 @@ class PretrainedBERT:
         self.bert_tokenizer = None
 
     @staticmethod
-    def train_from_files(path_to_datadir: str, max_seq_len: int = 128, output_dir: str = ROOT_DIR+'/bert_training/',
-                         tensorboard_dir: str = ROOT_DIR+'/bert_runs/', do_eval: bool = False) -> None:
+    def train_from_file(path_to_datadir: str, max_seq_len: int = 128, output_dir: str = ROOT_DIR+'/bert_training/',
+                        tensorboard_dir: str = ROOT_DIR+'/bert_runs/', do_eval: bool = False) -> None:
         """
         This method can be used to train the bert model. It acts as a wrapper around the code in the
         'train_bert.py' file and sets most parameters to a decent default value. If more control is needed the

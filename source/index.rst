@@ -7,11 +7,8 @@ Documentation of the EmailClassificatieSoftware package
    
    installation
    getting_started
-   msc/anonymization
-   msc/traintestsplitting
+   utilities
    models/tfidf
-   models/pretrainedbert
-   models/bilstmclassifier
    
 Indices and tables
 ==================
