@@ -1,37 +1,158 @@
 
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utilities &#8212; EmailClassificatie 1.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utilities &mdash; EmailClassificatie 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Docs" href="docs.html" />
-    <link rel="prev" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> EmailClassificatie
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#text-anonymization">Text Anonymization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#train-and-test-file-splitting">Train and Test File Splitting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Docs</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EmailClassificatie</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utilities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="utilities">
 <h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
@@ -42,7 +163,7 @@ not tested properly on a large dataset for its ability to anonymize where
 detailed statistics about its behaviour could be recorded. Although usage in the
 research showed it appeared to be very well in anonymization, this is not a guarantee
 and the text in the research was checked and corrected manually afterwards.</p>
-<p>This package comes with an anonymization algorithm implemented in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Anonymizer</span></code>
+<p>This package comes with an anonymization algorithm implemented in the <a class="reference internal" href="models/anonymizer.html#msc.anonymizer.Anonymizer" title="msc.anonymizer.Anonymizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Anonymizer</span></code></a>
 class based upon the Named Entity Recognition (NER) detection algorithm for Dutch by spaCy.</p>
 <p>To use the anonymizer we create a class and set some parameters</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>anonymizer = Anonymizer`(replacement_string=&quot;X&quot;)
@@ -50,20 +171,20 @@ class based upon the Named Entity Recognition (NER) detection algorithm for Dutc
 </div>
 <p>Here the <code class="docutils literal notranslate"><span class="pre">replacement_string=&quot;X&quot;</span></code> indicates that we want to replace any occurance of a named entity
 in our piece of text with the character “X”.</p>
-<p>Now the we have created the anonymizer we can directly anonymize a string via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Anonymizer.anonymize_string()</span></code>
+<p>Now the we have created the anonymizer we can directly anonymize a string via the <a class="reference internal" href="models/anonymizer.html#msc.anonymizer.Anonymizer.anonymize_string" title="msc.anonymizer.Anonymizer.anonymize_string"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Anonymizer.anonymize_string()</span></code></a>
 method.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anonymizer</span><span class="o">.</span><span class="n">anonymize_string</span><span class="p">(</span><span class="s2">&quot;Hallo mijn naam is Bert and ik woon aan de Kalverstraat&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Although this method works fine, you probably already noticed that it takes quite a while to anonymize even a single sentence.
-For this reason it is generally recommended to use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Anonymizer.anonymize_file()</span></code> method to anonymize all the data you
+For this reason it is generally recommended to use the <a class="reference internal" href="models/anonymizer.html#msc.anonymizer.Anonymizer.anonymize_file" title="msc.anonymizer.Anonymizer.anonymize_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Anonymizer.anonymize_file()</span></code></a> method to anonymize all the data you
 want to anonymize before training and saving this to a file, instead of using this method as a preprocessor in the training scripts
 of the models.</p>
 </div>
 <div class="section" id="train-and-test-file-splitting">
 <h2>Train and Test File Splitting<a class="headerlink" href="#train-and-test-file-splitting" title="Permalink to this headline">¶</a></h2>
 <p>If you want to train a model but you do not yet have separate train and test files, or your label distribution
-in your train and test files is very different, you can use the <code class="xref py py-class docutils literal notranslate"><span class="pre">TrainTestSplitter</span></code> class to create
+in your train and test files is very different, you can use the <a class="reference internal" href="models/traintestsplitter.html#msc.traintestsplitter.TrainTestSplitter" title="msc.traintestsplitter.TrainTestSplitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrainTestSplitter</span></code></a> class to create
 separate train and test files or reshuffle exising train and test files.</p>
 <p>First we will instantiate a traintestsplitter</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">splitter</span> <span class="o">=</span> <span class="n">TrainTestSplitter</span><span class="p">()</span>
@@ -82,79 +203,52 @@ be written to separate files</p>
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">EmailClassificatie</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#text-anonymization">Text Anonymization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#train-and-test-file-splitting">Train and Test File Splitting</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="docs.html">Docs</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="getting_started.html" title="previous chapter">Getting Started</a></li>
-      <li>Next: <a href="docs.html" title="next chapter">Docs</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="docs.html" class="btn btn-neutral float-right" title="Docs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ruben van Heusden
 
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-
-
-
+</footer>
 
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2020, Ruben van Heusden.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/utilities.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

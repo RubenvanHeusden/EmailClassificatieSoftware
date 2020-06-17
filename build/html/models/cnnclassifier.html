@@ -1,47 +1,176 @@
 
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNN Classifier &#8212; EmailClassificatie 1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CNN Classifier &mdash; EmailClassificatie 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Bidirectional LSTM Classifier" href="bilstmclassifier.html" />
-    <link rel="prev" title="TFIDFClassifier" href="tfidf.html" />
+    <link rel="prev" title="TFIDFClassifier" href="tfidf.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> EmailClassificatie
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CNN Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csvdataset.html">CSV Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataloader.html">Dataloader</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EmailClassificatie</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../docs.html">Docs</a> &raquo;</li>
+        
+      <li>CNN Classifier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/models/cnnclassifier.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="cnn-classifier">
 <h1>CNN Classifier<a class="headerlink" href="#cnn-classifier" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt>
-<em class="property">class </em><code class="sig-prename descclassname">models.cnnclassifier.</code><code class="sig-name descname">CNNClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_outputs</span></em>, <em class="sig-param"><span class="n">num_filters</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em>, <em class="sig-param"><span class="n">filter_list</span><span class="p">:</span> <span class="n">tuple</span> <span class="o">=</span> <span class="default_value">3, 4, 5</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">device(type='cuda')</span></em>, <em class="sig-param"><span class="n">word_embedding_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/resources/word_embeddings/combined-320.tar/320/'</span></em>, <em class="sig-param"><span class="n">max_seq_len</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span></dt>
+<dt id="models.cnnclassifier.CNNClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">models.cnnclassifier.</code><code class="sig-name descname">CNNClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_outputs</span></em>, <em class="sig-param"><span class="n">num_filters</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em>, <em class="sig-param"><span class="n">filter_list</span><span class="p">:</span> <span class="n">tuple</span> <span class="o">=</span> <span class="default_value">3, 4, 5</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">device(type='cuda')</span></em>, <em class="sig-param"><span class="n">word_embedding_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/resources/word_embeddings/combined-320.tar/320/'</span></em>, <em class="sig-param"><span class="n">max_seq_len</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.cnnclassifier.CNNClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class implements a CNN Classifier based on the ‘CNN for text classification’ from Yoon Kim     It deals with the various aspects of the training, such as converting the data into the appropriate     format and logging the training process via TensorBoard</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">device</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier.device">
+<code class="sig-name descname">device</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier.device" title="Permalink to this definition">¶</a></dt>
 <dd><p>torch.device indicating on which device the model and the inputs should be, either on the GPU or the
 CPU. The default behaviour is to put the model and the inputs on the GPU when available.</p>
 <dl class="field-list simple">
@@ -52,8 +181,8 @@ CPU. The default behaviour is to put the model and the inputs on the GPU when av
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">model</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main model used for classification, in this case the CNN model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -63,8 +192,8 @@ CPU. The default behaviour is to put the model and the inputs on the GPU when av
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">num_outputs</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier.num_outputs">
+<code class="sig-name descname">num_outputs</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier.num_outputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integer specifying the number of outputs of the model. This should be set to the number of unique classes
 in the dataset. (the ‘get_num_labels_from_file’ method can be used to retrieve this from the csv file
 when this is not known)</p>
@@ -76,8 +205,8 @@ when this is not known)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">has_trained</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier.has_trained">
+<code class="sig-name descname">has_trained</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier.has_trained" title="Permalink to this definition">¶</a></dt>
 <dd><p>Boolean specifying whether the model has already been trained. This is used to ensure that the evaluaton
 or scoring is not accidentally run on an untrained model.</p>
 <dl class="field-list simple">
@@ -88,8 +217,8 @@ or scoring is not accidentally run on an untrained model.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">_TEXT</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier._TEXT">
+<code class="sig-name descname">_TEXT</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier._TEXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>torchtext.data.Field instance specifying several parameters of the reading of the data such as
 whether or not to convert all text to lowercase and the type and language of the tokenizer used.</p>
 <dl class="field-list simple">
@@ -100,8 +229,8 @@ whether or not to convert all text to lowercase and the type and language of the
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">_words</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier._words">
+<code class="sig-name descname">_words</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier._words" title="Permalink to this definition">¶</a></dt>
 <dd><p>list with all the words present in the Dutch embedding file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -111,8 +240,8 @@ whether or not to convert all text to lowercase and the type and language of the
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">_embed_dict</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier._embed_dict">
+<code class="sig-name descname">_embed_dict</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier._embed_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>dictionary mapping words in the embeddings file to indices into the embedding matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -122,8 +251,8 @@ whether or not to convert all text to lowercase and the type and language of the
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">_embeddings</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier._embeddings">
+<code class="sig-name descname">_embeddings</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier._embeddings" title="Permalink to this definition">¶</a></dt>
 <dd><p>torch.Tensor of size [num_words, embedding_dim] containing the word embeddings</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -140,8 +269,8 @@ for later use in the evaluation methods</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">_embed_dim</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier._embed_dim">
+<code class="sig-name descname">_embed_dim</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier._embed_dim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integer specifying the dimension of the embeddings used in the embedding file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -151,8 +280,8 @@ for later use in the evaluation methods</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname">_label_names</code></dt>
+<dt id="models.cnnclassifier.CNNClassifier._label_names">
+<code class="sig-name descname">_label_names</code><a class="headerlink" href="#models.cnnclassifier.CNNClassifier._label_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>list containing the names of the unique labels in the dataset, this is used for converting the
 integer representation used in training back to the original labels for easier interpretation</p>
 <dl class="field-list simple">
@@ -163,8 +292,8 @@ integer representation used in training back to the original labels for easier i
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; list</dt>
+<dt id="models.cnnclassifier.CNNClassifier.classify_from_file">
+<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#models.cnnclassifier.CNNClassifier.classify_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method reads in a file, parses it into the correct format and classifies the contents
 of the file. Throws an error when the model is not trained.</p>
 <dl class="field-list simple">
@@ -185,8 +314,8 @@ of the file. Throws an error when the model is not trained.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname">classify_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">strings</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; list</dt>
+<dt id="models.cnnclassifier.CNNClassifier.classify_from_strings">
+<code class="sig-name descname">classify_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">strings</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#models.cnnclassifier.CNNClassifier.classify_from_strings" title="Permalink to this definition">¶</a></dt>
 <dd><p>method that can be used for classifying one or multiple examples with a trained classifier</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -199,8 +328,8 @@ of the file. Throws an error when the model is not trained.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dt id="models.cnnclassifier.CNNClassifier.load_model">
+<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.cnnclassifier.CNNClassifier.load_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>method that can be used to load a classifier saved in the .pt format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,8 +339,8 @@ of the file. Throws an error when the model is not trained.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dt id="models.cnnclassifier.CNNClassifier.save_model">
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.cnnclassifier.CNNClassifier.save_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>method that can be used to save a (trained) classifier using the ‘.pt’ extension</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -221,8 +350,8 @@ of the file. Throws an error when the model is not trained.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="o">=</span><span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dt id="models.cnnclassifier.CNNClassifier.score">
+<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="o">=</span><span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.cnnclassifier.CNNClassifier.score" title="Permalink to this definition">¶</a></dt>
 <dd><p>method that can be used score that model on an unseen test file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -239,8 +368,8 @@ of the file. Throws an error when the model is not trained.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">logging_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/runs/'</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dt id="models.cnnclassifier.CNNClassifier.train_from_file">
+<code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">logging_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/runs/'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.cnnclassifier.CNNClassifier.train_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main method of this class, implementing a training procedure for the model and handling
 the proper loading of the dataset</p>
 <dl class="field-list simple">
@@ -264,87 +393,52 @@ the proper loading of the dataset</p>
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">EmailClassificatie</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">CNN Classifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="csvdataset.html">CSV Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dataloader.html">Dataloader</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="../docs.html">Docs</a><ul>
-      <li>Previous: <a href="tfidf.html" title="previous chapter">TFIDFClassifier</a></li>
-      <li>Next: <a href="bilstmclassifier.html" title="next chapter">Bidirectional LSTM Classifier</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bilstmclassifier.html" class="btn btn-neutral float-right" title="Bidirectional LSTM Classifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tfidf.html" class="btn btn-neutral float-left" title="TFIDFClassifier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ruben van Heusden
 
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-
-
-
+</footer>
 
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2020, Ruben van Heusden.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="../_sources/models/cnnclassifier.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>
