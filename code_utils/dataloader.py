@@ -34,7 +34,7 @@ class CustomDataLoader:
         be set to True.
 
         :param batch_size: integer specifying the size of the batches used in the training of a model
-        :param is_test_set: Boolean specifying whether or not the iterator is used as a test set or not.
+        :param is_test_set: Boolean specifying whether or not the iterator is used as a test set or not. \
         When set to True this disables the shuffling of the dataset
         :param text_col_name: string specifying the name of the text attribute in the iterator class
         :param label_col_name: string specifying the name of the label attribute in the iterator class

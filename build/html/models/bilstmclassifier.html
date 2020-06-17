@@ -15,6 +15,8 @@
     <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Anonymizer" href="anonymizer.html" />
+    <link rel="prev" title="CNN Classifier" href="cnnclassifier.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -251,18 +253,16 @@ the proper loading of the dataset</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file_name</strong> – string specifying the location and name of the file that contains the training dat</p></li>
 <li><p><strong>batch_size</strong> – integer specifying the batch size, this will affect the size of the batches fed into the         model this can be set lower if memory issues occur</p></li>
-<li><p><strong>num_epochs</strong> – integer specifying the number of epochs for which the model is trained. The right amount of</p></li>
+<li><p><strong>num_epochs</strong> – integer specifying the number of epochs for which the model is trained. The right amount of         epochs can differ for different datasets and it is recommended to inspect the produced TensorBoard logs         to see if the model has converged</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter used in the training csv file</p></li>
+<li><p><strong>quotechar</strong> – string specifying the quotechar used in the training csv file</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the column containing the mails in the csv file</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the column containing the labels of the mails in         the csv file</p></li>
+<li><p><strong>learning_rate</strong> – float specifying the learning rate of the model, this can affect the speed of         convergence of the model</p></li>
+<li><p><strong>logging_dir</strong> – directory to which the Tensorboard logging files are saved</p></li>
 </ul>
 </dd>
 </dl>
-<p>epochs can differ for different datasets and it is recommended to inspect the produced TensorBoard logs
-to see if the model has converged
-:param delimiter: string specifying the delimiter used in the training csv file
-:param quotechar: string specifying the quotechar used in the training csv file
-:param text_col_name: string specifying the name of the column containing the mails in the csv file
-:param label_col_name: string specifying the name of the column containing the labels of the mails in         the csv file
-:param learning_rate: float specifying the learning rate of the model, this can affect the speed of         convergence of the model
-:param logging_dir: directory to which the Tensorboard logging files are saved</p>
 </dd></dl>
 
 </dd></dl>
@@ -287,16 +287,31 @@ to see if the model has converged
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cnnclassifier.html">CNN Classifier</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Bidirectional LSTM Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csvdataset.html">CSV Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataloader.html">Dataloader</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../docs.html">Docs</a><ul>
+      <li>Previous: <a href="cnnclassifier.html" title="previous chapter">CNN Classifier</a></li>
+      <li>Next: <a href="anonymizer.html" title="next chapter">Anonymizer</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>

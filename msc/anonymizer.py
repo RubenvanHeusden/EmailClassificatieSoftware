@@ -91,7 +91,7 @@ class Anonymizer:
 
         set the argument replacement_string as the string to use when removing named entities
 
-        :param replacement_string: string that is to be set as the replacement string
+        :param replacement_string: string that is to be set as the replacement string \
         in the algorithm
         """
         self.replacement_string = replacement_string

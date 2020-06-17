@@ -61,14 +61,15 @@ be set to True.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_size</strong> – integer specifying the size of the batches used in the training of a model</p></li>
-<li><p><strong>is_test_set</strong> – Boolean specifying whether or not the iterator is used as a test set or not.</p></li>
+<li><p><strong>is_test_set</strong> – Boolean specifying whether or not the iterator is used as a test set or not.         When set to True this disables the shuffling of the dataset</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the text attribute in the iterator class</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the label attribute in the iterator class</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Iterator that can be used by the CNN and BiLSTM methods</p>
+</dd>
 </dl>
-<p>When set to True this disables the shuffling of the dataset
-:param text_col_name: string specifying the name of the text attribute in the iterator class
-:param label_col_name: string specifying the name of the label attribute in the iterator class
-:return: Iterator that can be used by the CNN and BiLSTM methods</p>
 </dd></dl>
 
 </dd></dl>
@@ -96,9 +97,11 @@ be set to True.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cnnclassifier.html">CNN Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>

@@ -27,7 +27,7 @@ class CSVDataset:
 
     def __init__(self, text_field: Field, file_name: str):
         """
-        :param text_field: torch.data.Field class set with the appropriate arguments used for reading in and
+        :param text_field: torch.data.Field class set with the appropriate arguments used for reading in and \
         (pre) processing the data. (see https://torchtext.readthedocs.io/en/latest/data.html) for more information
         :param file_name: string specifying the name and location of the csv file containing the training data
         """
@@ -45,9 +45,9 @@ class CSVDataset:
 
         :param delimiter: string specifying the delimiter used when reading in the csv file
         :param quotechar: string specifying the quotechar used when reading in the csvfile
-        :param text_col_name: string specifying the name of the column in the csv file containing
+        :param text_col_name: string specifying the name of the column in the csv file containing \
         the text of the data point
-        :param label_col_name: string specifying the name of the column in the csv file containing the
+        :param label_col_name: string specifying the name of the column in the csv file containing the \
         label of the datapoint
         :return: torch.data.TabularDataset
         """

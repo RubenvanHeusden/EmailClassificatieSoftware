@@ -117,8 +117,8 @@ class BiLSTMClassifier:
         :param file_name: string specifying the location and name of the file that contains the training dat
         :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into the \
         model this can be set lower if memory issues occur
-        :param num_epochs: integer specifying the number of epochs for which the model is trained. The right amount of
-        epochs can differ for different datasets and it is recommended to inspect the produced TensorBoard logs
+        :param num_epochs: integer specifying the number of epochs for which the model is trained. The right amount of \
+        epochs can differ for different datasets and it is recommended to inspect the produced TensorBoard logs \
         to see if the model has converged
         :param delimiter: string specifying the delimiter used in the training csv file
         :param quotechar: string specifying the quotechar used in the training csv file

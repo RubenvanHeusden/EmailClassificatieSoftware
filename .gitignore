@@ -8,3 +8,5 @@
 **/word_embeddings
 **/runs
 **/saved_models
+make.bat
+Makefile
