@@ -38,36 +38,6 @@ class PretrainedBERT:
     _class_labels
         labels that are used in this specific research, the labels should match the labels present in the
         dataset
-
-
-    Methods
-    -------
-    train_from_file(path_to_datadir, max_seq_len, output_dir, tensorboard_dir, do_eval)
-        This method acts as a wrapper around the training script in 'bert_training_files'
-        and can be used to fine-tune a BERT model pre-trained on the Dutch Language.
-        For simplicity most of the arguments from the 'train_bert.py' file have been set to their
-        default values.
-
-    classify_from_strings(text_string)
-        Method that can be used to classify a string or a list of strings with the BERT Model.
-        This does require that the model used for classification is first loaded via the
-        'load_model' method
-
-    classify_from_file(file_name, delimiter, quotechar, text_col_name, batch_size)
-        this can be used to classify the contents of a file. For this the model used for classification
-        has to be loaded using the 'load_model' method
-
-    classify_batches(list_of_examples)
-        this can be used to classify a list of examples in batches, useful for large lists \
-         For this the model used for classification has to be loaded using the 'load_model' method
-
-    load_model(path_to_saved_model)
-        This method can be used to load a model from the directory create by the 'train_from_file' method.
-        By loading this it can be used for further tasks such as classification or further training.
-
-
-
-
     """
     def __init__(self, use_gpu: bool = False, path_to_data: str = ROOT_DIR+"/data/train.csv"):
         """
@@ -134,6 +104,11 @@ class PretrainedBERT:
 
     def classify_from_strings(self, text_string: str) -> List:
         """
+
+        Method that can be used to classify a string or a list of strings with the BERT Model.
+        This does require that the model used for classification is first loaded via the
+        'load_model' method
+
         :param text_string: string that contains the text to be classified
         :return: list containing the string representation of the most likely class according \
         to the Bert model.

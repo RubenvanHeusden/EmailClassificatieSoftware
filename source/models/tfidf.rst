@@ -1,3 +1,4 @@
-TF-IDF Classifier
-*****************
-.. autofunction:: models.tfidf.TFIDFClassifier.train_from_file
+TFIDFClassifier
+***************
+.. autoclass:: models.tfidf.TFIDFClassifier
+	:members:

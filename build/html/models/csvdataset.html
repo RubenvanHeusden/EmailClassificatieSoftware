@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Dataset &#8212; EmailClassificatie 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Dataloader" href="dataloader.html" />
+    <link rel="prev" title="DataIterator" href="dataiterator.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="csv-dataset">
+<h1>CSV Dataset<a class="headerlink" href="#csv-dataset" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">code_utils.csvdataset.</code><code class="sig-name descname">CSVDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text_field</span><span class="p">:</span> <span class="n">torchtext.data.field.Field</span></em>, <em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span></dt>
+<dd><p>This class implements a csv reader that converts the data into an appropriate representation that is used
+further in the pipeline by the biLSTM and CNN neural network models</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">text_field</code></dt>
+<dd><p>orch.data.Field class set with the appropriate arguments used for reading in and
+(pre) processing the data. (see <a class="reference external" href="https://torchtext.readthedocs.io/en/latest/data.html">https://torchtext.readthedocs.io/en/latest/data.html</a>) for more information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Field</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">file_name</code></dt>
+<dd><p>string specifying the name and location of the csv file containing the training data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em><span class="sig-paren">)</span> &#x2192; torchtext.data.dataset.TabularDataset</dt>
+<dd><p>This methods is responsible for loading in the data from the csv file and converting it into
+a torchtext TabularDataset, it will automatically only select the columns from the file that are
+specified by the ‘text_col_name’ and ‘label_col_name’ parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delimiter</strong> – string specifying the delimiter used when reading in the csv file</p></li>
+<li><p><strong>quotechar</strong> – string specifying the quotechar used when reading in the csvfile</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the column in the csv file containing</p></li>
+</ul>
+</dd>
+</dl>
+<p>the text of the data point
+:param label_col_name: string specifying the name of the column in the csv file containing the
+label of the datapoint
+:return: torch.data.TabularDataset</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">EmailClassificatie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cnnclassifier.html">CNN Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CSV Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataloader.html">Dataloader</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../docs.html">Docs</a><ul>
+      <li>Previous: <a href="dataiterator.html" title="previous chapter">DataIterator</a></li>
+      <li>Next: <a href="dataloader.html" title="next chapter">Dataloader</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ruben van Heusden.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/models/csvdataset.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

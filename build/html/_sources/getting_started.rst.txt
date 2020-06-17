@@ -40,7 +40,7 @@ containing the text and the labels respectively.
 
 Now that we have trained our classifier we can start classifying some inputs!
 
-To do this we can simply call the 'classify_from_strings' method with the piece of text we want
+To do this we can simply call the :meth:`.TFIDFClassifier.classify_from_strings` method with the piece of text we want
 to classify as an argument
 
 .. code-block:: python
@@ -52,7 +52,7 @@ Loading and saving models
 =========================
 
 Now that we have trained the model, we might want to save to model so that we can use this model again later
-if we want to classify more examples. This is quite easy, we only have to call the 'save_model' method and specify 
+if we want to classify more examples. This is quite easy, we only have to call the :meth:`.TFIDFClassifier.save_model` method and specify 
 a filename that will be used when saving the file. Please note that the TF-IDF classifier uses a different system
 for saving the files than the other models in this package (joblib instead of pytorch) so the file should have the 
 '.joblib' extension.
@@ -75,4 +75,5 @@ Final Notes
 ===========
 That's it! we have trained simple TFIDF classifier, classified an example and saved the model for later use.
 The other models in this module also follow the same workflow, so they can be trained in much the same way as 
-the TF-IDF classifier.
+the TF-IDF classifier. If you want to see how to exactly to train the other models in this package, take a look
+at the 'examples' folder, it contains examples for (almost) everyting in this package.

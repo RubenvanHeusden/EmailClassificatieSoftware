@@ -15,7 +15,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 class TFIDFClassifier:
     """
     class implementing a TF-IDF classifier combined with an SVM model
-    ...
 
     Attributes
     ----------
@@ -30,36 +29,6 @@ class TFIDFClassifier:
     _name : string
         string representation of the name of the model to be used for string representation
 
-    Methods
-    -------
-
-    save_model(file_name)
-        saves the (trained) classifier from sklearn using the joblib module
-
-    load_model(filename)
-        load a classifier saved by the save_model method
-
-    train_from_file(train_data_path, text_col_name, label_col_name,
-                        delimiter, quotechar)
-
-        trains a model with data loaded from a csv file where the columns specifying the text and labels
-        are arguments to the function
-
-    train_from_strings(train_data)
-        trains a model from an input list 'train_data' of tuples where each tuple specifies a data point
-
-    classify_from_file(classification_data_path, text_col_name, label_col_name, delimiter, quotechar)
-        classifies examples from a csv file with the trained classifier, where the column with the text
-        to be classified is selected with the text_col_name parameter
-
-    classify_from_strings(classification_data)
-        classifies a single example or a list of examples with the trained classifier
-
-    score(test_data_path, text_col_name, label_col_name, delimiter, verbose, class_averaging)
-        score the performance of the model on an (unseen) test set where the names of the
-        columns for the text and labels is indicated with the label_col_name and text_col_name
-        parameters. the verbose parameter controls the detail of the analysis conducted.
-
     """
     def __init__(self, do_lowercase: bool = True, string_encoding: str = 'utf-8',
                  custom_tokenizer=None, custom_preprocessor=None, n_grams=(1, 1), verbose_training: bool = False):
@@ -67,7 +36,7 @@ class TFIDFClassifier:
         :param do_lowercase: boolean specifying whether text should be automatically converted to lowercase
         :param string_encoding: specifying the encode to use when reading in text. default = 'utf-8'
         :param custom_tokenizer: if not None, a callable that takes string input and returns a list of tokens
-        :param custom_preprocessor: of not None, a callable that takes string input and return a string
+        :param custom_preprocessor: of not None, a callable that takes string input and return a string \
         processed in some way. (see the examples folder for example use-cases)
         :param n_grams: a tuple specifying the ngrams range used. default is ()
 
@@ -83,7 +52,10 @@ class TFIDFClassifier:
 
     def save_model(self, file_name: str) -> None:
         """
-        :param file_name: string specifying the name of the file to where
+
+        saves the (trained) classifier from sklearn using the joblib module
+
+        :param file_name: string specifying the name of the file to where \
         the model is saved. the standard format is 'joblib' and should be specified.
 
         """
@@ -93,7 +65,10 @@ class TFIDFClassifier:
 
     def load_model(self, file_name: str) -> None:
         """
-        :param file_name: string specifying the name of the file from which the model
+
+        load a classifier saved by the save_model method
+
+        :param file_name: string specifying the name of the file from which the model \
         is loaded. the standard format is 'joblib' and should be specified.
 
         """
@@ -104,6 +79,11 @@ class TFIDFClassifier:
     def train_from_file(self, train_data_path, text_col_name: str = "text", label_col_name: str = "label",
                         delimiter=",", quotechar='"') -> None:
         """
+
+        trains a model with data loaded from a csv file where the columns specifying the text and labels
+        are arguments to the function
+
+
         :param train_data_path: string specifying the file that contains the data points that the classifier is \
          trained on
         :param text_col_name: string specifying the name of the column containing the mails in the csv file
@@ -124,7 +104,10 @@ class TFIDFClassifier:
 
     def train_from_strings(self, train_data: List[Tuple]) -> None:
         """
-        :param train_data: list of tuples of the form [(x_1, y_1), (x_2, y_2), ..., (x_n, y_n)]
+
+        trains a model from an input list 'train_data' of tuples where each tuple specifies a data point
+
+        :param train_data: list of tuples of the form [(x_1, y_1), (x_2, y_2), ..., (x_n, y_n)] \
         specifying the text label pairs used for training.
 
         """
@@ -138,13 +121,18 @@ class TFIDFClassifier:
     def classify_from_file(self, classification_data_path, text_col_name: str = "text", delimiter=",",
                            quotechar='"') -> List[Any]:
         """
-        :param classification_data_path: string specifying the file that contains the
+
+        classifies examples from a csv file with the trained classifier, where the column with the text
+        to be classified is selected with the text_col_name parameter
+
+        :param classification_data_path: string specifying the file that contains the \
         texts to be classified by the classifier
-        :param text_col_name: string specifying the name of the column containing the mails
+        :param text_col_name: string specifying the name of the column containing the mails \
         in the csv file
         :param delimiter: string specifying the delimiter of the csv file, defaults to ","
         :param quotechar: specifying the character as quotechar in the csv reader. defaults to "
-        :return:
+        :return: A list of predictions with the same length as the number of data points in the file, \
+        where each entry in the list is a prediction of the model
 
         """
         classification_data = pd.read_csv(classification_data_path, sep=delimiter, quotechar=quotechar)
@@ -154,10 +142,13 @@ class TFIDFClassifier:
 
     def classify_from_strings(self, classification_data) -> List[Any]:
         """
-        :param classification_data: string or list containing the example(s) for classification.
-        the acceptance of a string to signify a single example is done in favor of manually putting a single
+
+        classifies a single example or a list of examples with the trained classifier
+
+        :param classification_data: string or list containing the example(s) for classification. \
+        the acceptance of a string to signify a single example is done in favor of manually putting a single \
         example into a list.
-        :return:
+        :return: A list of strings with the same length as the input list with the predictions of the model
 
         """
         if isinstance(classification_data, str):
@@ -167,22 +158,25 @@ class TFIDFClassifier:
     def score(self, test_data_path, text_col_name: str = "text", label_col_name: str = "label",
               delimiter=",", quotechar='"', verbose=1, class_averaging: str = "weighted") -> None:
         """
-        :param test_data_path: string specifying the file that contains the data points that have to be
+
+        score(test_data_path, text_col_name, label_col_name, delimiter, verbose, class_averaging)
+
+        :param test_data_path: string specifying the file that contains the data points that have to be \
         scored
-        :param text_col_name: string specifying the name of the column containing the mails
+        :param text_col_name: string specifying the name of the column containing the mails \
         in the csv file
-        :param label_col_name: string specifying the name of the column containing the labels of the mails
+        :param label_col_name: string specifying the name of the column containing the labels of the mails \
         in the csv file
         :param delimiter: string specifying the delimiter of the csv file, defaults to ","
         :param quotechar: specifying the character as quotechar in the csv reader. defaults to "
-        :param verbose: integer specifying the verbosity of the returned score, below are the possible
-        options:
-            1: return only accuracy
-            2: return overall accuracy, precision, recall and f1
-            3: return detailed sklearn classification report
-        Because the dataset is multiclass and there is possible class imbalance, weighted versions
+        :param verbose: integer specifying the verbosity of the returned score, below are the possible \
+        options: \
+            1: return only accuracy \
+            2: return overall accuracy, precision, recall and f1 \
+            3: return detailed sklearn classification report \
+        Because the dataset is multiclass and there is possible class imbalance, weighted versions \
         of all classification scores are used
-        :param class_averaging: specifies the kind of averaging to use for the scoring in a multiclass
+        :param class_averaging: specifies the kind of averaging to use for the scoring in a multiclass \
         classification setting. see Sklearn documentation for more details on the options.
         :return: scores indicating the performance of the model, depends on level of verbosity set.
 

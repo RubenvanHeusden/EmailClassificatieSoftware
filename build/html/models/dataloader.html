@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataloader &#8212; EmailClassificatie 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="CSV Dataset" href="csvdataset.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="dataloader">
+<h1>Dataloader<a class="headerlink" href="#dataloader" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">code_utils.dataloader.</code><code class="sig-name descname">CustomDataLoader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">torchtext.data.dataset.Dataset</span></em><span class="sig-paren">)</span></dt>
+<dd><p>This class implements a CustomDataLoader that is used to convert the contents of a CSV dataset into
+the right format for the BiLSTM and CNN neural networks, which includes converting the words to indices
+in the word embedding matrix uses by the models and converting the labels of the data points into unique
+integers</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">data</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>(sub) class of torch.data.Dataset containing the read-in data from a csv file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">construct_iterators</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">is_test_set</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em><span class="sig-paren">)</span> &#x2192; code_utils.dataiterator.DataIterator</dt>
+<dd><p>This method is used to construct iterators that can be used during the training of the neural
+networks from the dataset created by CSVDataset. When used for evaluation the ‘is_test_set’ should
+be set to True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_size</strong> – integer specifying the size of the batches used in the training of a model</p></li>
+<li><p><strong>is_test_set</strong> – Boolean specifying whether or not the iterator is used as a test set or not.</p></li>
+</ul>
+</dd>
+</dl>
+<p>When set to True this disables the shuffling of the dataset
+:param text_col_name: string specifying the name of the text attribute in the iterator class
+:param label_col_name: string specifying the name of the label attribute in the iterator class
+:return: Iterator that can be used by the CNN and BiLSTM methods</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">EmailClassificatie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cnnclassifier.html">CNN Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csvdataset.html">CSV Dataset</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dataloader</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../docs.html">Docs</a><ul>
+      <li>Previous: <a href="csvdataset.html" title="previous chapter">CSV Dataset</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ruben van Heusden.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/models/dataloader.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

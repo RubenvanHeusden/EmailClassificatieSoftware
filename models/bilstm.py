@@ -43,17 +43,6 @@ class BiLSTM(nn.Module):
         the default behaviour is to check for the availability of a GPU on the system and use this if
         its is available
 
-    Methods
-    -------
-    forward(x: Union[torch.Tensor, Tuple[torch.Tensor]])
-        the forward method is responsible for passing an input to the network and calculating the output.
-        This method automatically incorporates the lengths of the inputs passed to it as to minimize the
-        padding needed.
-
-    set_new_embedding_matrix(embedding_matrix)
-        this method can be used to set a new embedding matrix, it automatically changes the parameters of the
-        model that are affected by this change
-
     """
     def __init__(self, vocab: torch.Tensor, hidden_dim: int, output_dim: int, dropout: float = 0.3,
                  device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")):
@@ -82,6 +71,11 @@ class BiLSTM(nn.Module):
 
     def forward(self, x: List[torch.Tensor]) -> torch.Tensor:
         """
+
+        the forward method is responsible for passing an input to the network and calculating the output.
+        This method automatically incorporates the lengths of the inputs passed to it as to minimize the
+        padding needed.
+
         :param x: a list with contents [batch_word_embeddings_indices, vector_with_sentence_lengths]
         to be fed into the model
         :return: the outpus of the model of shape [num_outputs, 1]
@@ -104,6 +98,10 @@ class BiLSTM(nn.Module):
 
     def set_new_embedding_matrix(self, embedding_matrix: torch.FloatTensor) -> None:
         """
+
+        this method can be used to set a new embedding matrix, it automatically changes the parameters of the
+        model that are affected by this change
+
         :param embedding_matrix: torch.FloatTensor of shape [num_words_in_vocab, embedding_dim] specifying the
         new matrix that should be used as embeddding matrix
         :return: None

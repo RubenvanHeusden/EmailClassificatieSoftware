@@ -15,11 +15,11 @@ def main():
     # First we will split the 'data.csv' file in the 'test_data' directory into two separate files and
     # check that their distribution is (almost) similar.
 
-    data_fil_path = ROOT_DIR+"/test_data/data.csv"
+    data_file_path = ROOT_DIR+"/test_data/data.csv"
 
     # Now we will split the file into a train and test set, wher the 'stratify_file' method
     # returns two dataframes
-    train_dataframe, test_dataframe = splitter.stratify_file(file_path=data_fil_path)
+    train_dataframe, test_dataframe = splitter.stratify_file(file_name=data_file_path)
 
     # We can print the distribution of the labels of the dataset and see that they are close.
     # (the stratify function uses a 70/30 split for train and test by default)

@@ -15,20 +15,6 @@ class TrainTestSplitter:
     This class implements several functions to stratify a dataset, either by creating splits from
     one datafile are by combining and reshuffling the existing train and test file
 
-
-    Methods
-    -------
-    stratify_file(file_path, delimiter, quotechar, text_col_name, label_col_name)
-        Method that can be used to read in an existing file and split it into
-        train and test files with a stratification strategy to keep the distributions of
-        labels between the two files as similar as possible.
-
-    _stratify(dataframe, text_col_name, label_col_name)
-        Method that handles the stratificaton of a dataframe and splits it into two parts,
-        this method is used by the 'stratify_file' and the 'reshuffle' methods under the hood.
-
-    reshuffle(train_file_path, test_file_path, delimiter, quotechar, text_col_name, label_col_name, shuffle_strategy)
-        This methods reads in existing train and test files and reshuffles them so that they are stratified.
     """
     def __init__(self):
         pass
@@ -37,13 +23,19 @@ class TrainTestSplitter:
     def stratify_file(file_name: str, delimiter: str = ",", quotechar: str = '"', text_col_name: str = "text",
                       label_col_name: str = 'label', train_portion: float = 0.7) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
+        Method that can be used to read in an existing file and split it into
+        train and test files with a stratification strategy to keep the distributions of
+        labels between the two files as similar as possible.
+
         :param file_name: string specifying the path and name where the datafile is located
         :param delimiter: string specifying the delimiter used in the csv file, this is used by the csv reader
         :param quotechar: string indicating the character used for quoting
         :param text_col_name: string specifying the name of the header of the text column, defaults to 'text'
         :param label_col_name: string specifying the name of the header of the label column, defaults to 'label'
-        :param train_portion: integer indicating the percentage of the total dataset that is used for training the test set size is set to (1-train_portoin), default is 0.7.
-        :return: returns a tuple of two dataframes wher the first is the train dataframe and the second is the test dataframe
+        :param train_portion: integer indicating the percentage of the total dataset that is used for training \
+        the test set size is set to (1-train_portoin), default is 0.7.
+        :return: returns a tuple of two dataframes wher the first is the train dataframe and the second is \
+        the test dataframe
 
         """
 
@@ -60,11 +52,16 @@ class TrainTestSplitter:
             -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
 
+        Method that handles the stratificaton of a dataframe and splits it into two parts,
+        this method is used by the 'stratify_file' and the 'reshuffle' methods under the hood.
+
         :param dataframe: dataframe to be split containing all the datapoints
         :param text_col_name: string specifying the name of the header of the text column, defaults to 'text'
         :param label_col_name: string specifying the name of the header of the label column, defaults to 'label'
-        :param train_portion: integer indicating the percentage of the total dataset that is used for training the test set size is set to (1-train_portoin), default is 0.7.
-        :return: returns a tuple of two dataframes wher the first is the train dataframe and the second is the test dataframe
+        :param train_portion: integer indicating the percentage of the total dataset that is used for training the \
+         test set size is set to (1-train_portoin), default is 0.7.
+        :return: returns a tuple of two dataframes wher the first is the train dataframe and the second is the test \
+         dataframe
 
         """
 

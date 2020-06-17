@@ -15,7 +15,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="TF-IDF Classifier" href="models/tfidf.html" />
+    <link rel="next" title="Docs" href="docs.html" />
     <link rel="prev" title="Getting Started" href="getting_started.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -37,9 +37,47 @@
 <h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="text-anonymization">
 <h2>Text Anonymization<a class="headerlink" href="#text-anonymization" title="Permalink to this headline">¶</a></h2>
+<p>DISCLAIMER: The anonymization algorithm using spaCy in this research is
+not tested properly on a large dataset for its ability to anonymize where
+detailed statistics about its behaviour could be recorded. Although usage in the
+research showed it appeared to be very well in anonymization, this is not a guarantee
+and the text in the research was checked and corrected manually afterwards.</p>
+<p>This package comes with an anonymization algorithm implemented in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Anonymizer</span></code>
+class based upon the Named Entity Recognition (NER) detection algorithm for Dutch by spaCy.</p>
+<p>To use the anonymizer we create a class and set some parameters</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>anonymizer = Anonymizer`(replacement_string=&quot;X&quot;)
+</pre></div>
+</div>
+<p>Here the <code class="docutils literal notranslate"><span class="pre">replacement_string=&quot;X&quot;</span></code> indicates that we want to replace any occurance of a named entity
+in our piece of text with the character “X”.</p>
+<p>Now the we have created the anonymizer we can directly anonymize a string via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Anonymizer.anonymize_string()</span></code>
+method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anonymizer</span><span class="o">.</span><span class="n">anonymize_string</span><span class="p">(</span><span class="s2">&quot;Hallo mijn naam is Bert and ik woon aan de Kalverstraat&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Although this method works fine, you probably already noticed that it takes quite a while to anonymize even a single sentence.
+For this reason it is generally recommended to use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Anonymizer.anonymize_file()</span></code> method to anonymize all the data you
+want to anonymize before training and saving this to a file, instead of using this method as a preprocessor in the training scripts
+of the models.</p>
 </div>
 <div class="section" id="train-and-test-file-splitting">
 <h2>Train and Test File Splitting<a class="headerlink" href="#train-and-test-file-splitting" title="Permalink to this headline">¶</a></h2>
+<p>If you want to train a model but you do not yet have separate train and test files, or your label distribution
+in your train and test files is very different, you can use the <code class="xref py py-class docutils literal notranslate"><span class="pre">TrainTestSplitter</span></code> class to create
+separate train and test files or reshuffle exising train and test files.</p>
+<p>First we will instantiate a traintestsplitter</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">splitter</span> <span class="o">=</span> <span class="n">TrainTestSplitter</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now the we have created our splitter we can use it to split an existing file into two dataframes which can then
+be written to separate files</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train_dataframe</span><span class="p">,</span> <span class="n">test_dataframe</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">stratify_file</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;/test_data/data.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can also reshuffle existing train and test files by using the :method:’.TrainTestSplitter.reshuffle’ method</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train_set</span><span class="p">,</span> <span class="n">test_set</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">reshuffle</span><span class="p">(</span><span class="s1">&#39;/test_data/train.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;/test_data/test.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -69,7 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#train-and-test-file-splitting">Train and Test File Splitting</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="models/tfidf.html">TF-IDF Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Docs</a></li>
 </ul>
 
 <div class="relations">
@@ -77,7 +115,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="getting_started.html" title="previous chapter">Getting Started</a></li>
-      <li>Next: <a href="models/tfidf.html" title="next chapter">TF-IDF Classifier</a></li>
+      <li>Next: <a href="docs.html" title="next chapter">Docs</a></li>
   </ul></li>
 </ul>
 </div>

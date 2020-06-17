@@ -35,10 +35,15 @@ class DataIterator:
         """
         this method implements a wrapper around the torchtext dataset that retrieves the attributes in the
         torchtext iterator and returns the actual data
+
         :return: tuple with contents [text_data, label_data] gotten from the torchtext iterator
         """
         for batch in self.iterator:
             yield getattr(batch, self.text_col_name), getattr(batch, self.label_col_name)
 
     def __len__(self) -> int:
+        """
+        :return: Returns the length of the iterator
+        """
+
         return len(self.iterator)

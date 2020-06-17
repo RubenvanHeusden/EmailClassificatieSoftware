@@ -66,29 +66,6 @@ class BiLSTMClassifier:
             list containing the names of the unique labels in the dataset, this is used for converting the
             integer representation used in training back to the original labels for easier interpretation
 
-
-
-    Methods
-    -------
-        train_from_file(file_name, batch_size, num_epochs, delimiter, quotechar, text_col_name, label_col_name,
-        learning_rate,max_seq_len, logging_dir)
-            The main method of this class, implementing a training procedure for the model and handling
-            the proper loading of the dataset
-
-        classify_from_file(file_name, delimiter, quotechar, text_col_name, label_col_name, batch_size)
-            method used for classifying a set of examples for a file with a trained classifier
-
-        classify_from_strings(strings, max_seq_len)
-            method that can be used for classifying one or multiple examples with a trained classifier
-
-        score(file_name, delimiter, quotechar, text_col_name, label_col_name, batch_size)
-            method that can be used score that model on an unseen test file
-
-        save_model(filename)
-            method that can be used to save a (trained) classifier
-
-        load_model(filename)
-            method that can be used to load a classifier saved in the .pt format
     """
 
     def __init__(self, num_outputs, hidden_dim=256, device=torch.device("cuda" if torch.cuda.is_available() else "cpu"),
@@ -106,7 +83,7 @@ class BiLSTMClassifier:
         """
         # Load in the vectors when they are not already present in the package
         if not embeddings_available():
-            download_word_embeddings_nl(path=word_embedding_path)
+            download_word_embeddings_nl()
             print("--- Constructing the Pytorch embedding matrix file ---")
             torchtext.vocab.Vectors('combined-320.txt', cache=word_embedding_path)
 
@@ -134,6 +111,9 @@ class BiLSTMClassifier:
                         quotechar: str = '"', text_col_name: str = 'text', label_col_name='label', learning_rate=1.0,
                         logging_dir: str = ROOT_DIR+'/runs/') -> None:
         """
+        The main method of this class, implementing a training procedure for the model and handling
+        the proper loading of the dataset
+
         :param file_name: string specifying the location and name of the file that contains the training dat
         :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into the \
         model this can be set lower if memory issues occur
@@ -181,6 +161,9 @@ class BiLSTMClassifier:
     def classify_from_file(self, file_name, delimiter: str = ",", quotechar: str = '"', text_col_name: str = "text",
                            label_col_name: str = 'label', batch_size: int = 64) -> list:
         """
+
+         method used for classifying a set of examples for a file with a trained classifier
+
         This method reads in a file, parses it into the correct format and classifies the contents
         of the file. Throws an error when the model is not trained.
 
@@ -220,6 +203,9 @@ class BiLSTMClassifier:
 
     def classify_from_strings(self, strings: Union[List[str], str]) -> list:
         """
+
+        method that can be used for classifying one or multiple examples with a trained classifier
+
         :param strings: a single string or a list of strings representing the pieces of text that should be classified
         :return: list containing the predictions of the models for the inputted pieces of text
         """
@@ -251,6 +237,9 @@ class BiLSTMClassifier:
     def score(self, file_name: str, delimiter: str = ",", quotechar='"', text_col_name: str = 'text',
               label_col_name: str = 'label', batch_size: int = 64) -> None:
         """
+
+        method that can be used score that model on an unseen test file
+
         :param file_name: string specifying the location and name of the file that contains the training dat
         :param delimiter: string specifying the delimiter used in the training csv file
         :param quotechar: string specifying the quotechar used in the training csv file
@@ -278,6 +267,9 @@ class BiLSTMClassifier:
 
     def save_model(self, filename: str) -> None:
         """
+
+        method that can be used to save a (trained) classifier
+
         :param filename: string specifying the location and name of the destination of the saved model
         """
         assert filename.split(".")[-1] == "pt"
@@ -286,6 +278,9 @@ class BiLSTMClassifier:
 
     def load_model(self, filename: str) -> None:
         """
+
+        method that can be used to load a classifier saved in the .pt format
+
         :param filename: string specifying the name and location of the saved model to be loaded
         """
         assert filename.split(".")[-1] == "pt"

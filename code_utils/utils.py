@@ -7,7 +7,8 @@ import tarfile
 import pandas as pd
 from tqdm import tqdm
 from configurations import ROOT_DIR
-from urllib.request import urlretrieve, urlopen
+from urllib.request import urlretrieve
+from code_utils.dataiterator import DataIterator
 from torch.utils.tensorboard import SummaryWriter
 from sklearn.utils.class_weight import compute_class_weight
 from sklearn.metrics import f1_score, recall_score, precision_score
@@ -111,7 +112,14 @@ def generic_evaluation(model, dataset, criterion, device=None):
     return all_predictions, all_ground_truth_labels, all_texts
 
 
-def single_task_class_weighting(dataset):
+def single_task_class_weighting(dataset: DataIterator) -> torch.Tensor:
+    """
+
+    :param dataset: A dataset contained in the DataIterator class for which class weights
+    should be calculated.
+
+    :return: torch.Tensor of size [num_unique_classes, 1] specifying the class weight for each one of them
+    """
     total_y = []
     for X, y in dataset:
         total_y.append(y)
@@ -123,17 +131,15 @@ def single_task_class_weighting(dataset):
     return torch.from_numpy(weights).float()
 
 
-# def download_word_embeddings_nl(path='resources/word_embeddings/'):
-#     print('Beginning file download with urllib2...')
-#     url = 'https://www.clips.uantwerpen.be/dutchembeddings/combined-320.tar.gz'
-#     file_tmp = urlretrieve(url, filename=None)[0]
-#     base_name = os.path.basename(url)
-#     file_name, file_extension = os.path.splitext(base_name)
-#     tar = tarfile.open(file_tmp)
-#     tar.extractall(ROOT_DIR+'/resources/word_embeddings/'+file_name)
-#
+def download_word_embeddings_nl() -> None:
+    """
+    Method that is used to download the NIPS Dutch word embeddings
+    and put them in the 'resources/word_embeddings' folder. Also includes
+    code to show the progress of the download as this can take a few
+    minutes based on the speed of the internet connection
 
-def download_word_embeddings_nl(path='resources/word_embeddings/'):
+    :return: None
+    """
     print('--- Beginning word embedding file download ---')
     url = 'https://www.clips.uantwerpen.be/dutchembeddings/combined-320.tar.gz'
     with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1,
@@ -145,17 +151,35 @@ def download_word_embeddings_nl(path='resources/word_embeddings/'):
     file_name, file_extension = os.path.splitext(base_name)
     tar = tarfile.open(file_tmp)
     tar.extractall(ROOT_DIR+'/resources/word_embeddings/'+file_name)
+    return None
 
 
-def embeddings_available():
-    directories = []
+def embeddings_available() -> bool:
+    """
+    Method that checks whether there exists a file with the name of the
+    word embeddings file in the current package folder. This is used to
+    check whether the embeddings should be downloaded or not.
+
+    :return:
+    """
+    all_files = []
     for root, dirs, files in os.walk(ROOT_DIR):
-        directories.extend(dirs)
-    if 'word_embeddings' not in directories:
+        all_files.extend(files)
+    if 'combined-320.txt' not in all_files:
         return False
     else:
         return True
 
 
-def get_num_labels_from_file(file_name, delimiter=",", quotechar='"', label_col_name='label'):
+def get_num_labels_from_file(file_name: str, delimiter: str = ",", quotechar: str = '"',
+                             label_col_name: str = 'label') -> int:
+    """
+    Method that can be used to retrieve the unique numbers of labels in a file.
+
+    :param file_name: string specifying the name and location of the file where the data is located.
+    :param delimiter: string specifying the delimiter used in the csv file
+    :param quotechar: string specifying the quotechar used in the csv file
+    :param label_col_name: string specifying the name of the header of the column where the labels are located.
+    :return: Returns the (integer) amount of unique labels in the dataset
+    """
     return pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)[label_col_name].nunique()

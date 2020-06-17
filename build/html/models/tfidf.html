@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TF-IDF Classifier &#8212; EmailClassificatie 1.0 documentation</title>
+    <title>TFIDFClassifier &#8212; EmailClassificatie 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -15,8 +15,6 @@
     <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pretrained BERT" href="pretrainedbert.html" />
-    <link rel="prev" title="Splitting Into Train and Test files" href="../msc/traintestsplitting.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -33,12 +31,122 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="tf-idf-classifier">
-<h1>TF-IDF Classifier<a class="headerlink" href="#tf-idf-classifier" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="models.tfidf.TFIDFClassifier.train_from_file">
-<code class="sig-prename descclassname">TFIDFClassifier.</code><code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">train_data_path</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="o">=</span><span class="default_value">'&quot;'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.tfidf.TFIDFClassifier.train_from_file" title="Permalink to this definition">¶</a></dt>
+  <div class="section" id="tfidfclassifier">
+<h1>TFIDFClassifier<a class="headerlink" href="#tfidfclassifier" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="models.tfidf.TFIDFClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">models.tfidf.</code><code class="sig-name descname">TFIDFClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">do_lowercase</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">string_encoding</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">custom_tokenizer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">custom_preprocessor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_grams</span><span class="o">=</span><span class="default_value">1, 1</span></em>, <em class="sig-param"><span class="n">verbose_training</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.tfidf.TFIDFClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>class implementing a TF-IDF classifier combined with an SVM model</p>
+<dl class="py attribute">
+<dt id="models.tfidf.TFIDFClassifier.classifier">
+<code class="sig-name descname">classifier</code><a class="headerlink" href="#models.tfidf.TFIDFClassifier.classifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pipeline object used for the preprocessing and classification of the data. The specific
+models and the reason they were chosen can be found in the technical report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>sklearn.pipeline.Pipeline</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="models.tfidf.TFIDFClassifier.string_encoding">
+<code class="sig-name descname">string_encoding</code><a class="headerlink" href="#models.tfidf.TFIDFClassifier.string_encoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>string representing the type of encoding to be used when reading the string, the default is ‘utf-8’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="simple">
+<dt>_name<span class="classifier">string</span></dt><dd><p>string representation of the name of the model to be used for string representation</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.classify_from_file">
+<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classification_data_path</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="o">=</span><span class="default_value">'&quot;'</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Any<span class="p">]</span><a class="headerlink" href="#models.tfidf.TFIDFClassifier.classify_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>classifies examples from a csv file with the trained classifier, where the column with the text
+to be classified is selected with the text_col_name parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>classification_data_path</strong> – string specifying the file that contains the         texts to be classified by the classifier</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the column containing the mails         in the csv file</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter of the csv file, defaults to “,”</p></li>
+<li><p><strong>quotechar</strong> – specifying the character as quotechar in the csv reader. defaults to “</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of predictions with the same length as the number of data points in the file,         where each entry in the list is a prediction of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.classify_from_strings">
+<code class="sig-name descname">classify_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classification_data</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Any<span class="p">]</span><a class="headerlink" href="#models.tfidf.TFIDFClassifier.classify_from_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>classifies a single example or a list of examples with the trained classifier</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>classification_data</strong> – string or list containing the example(s) for classification.         the acceptance of a string to signify a single example is done in favor of manually putting a single         example into a list.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of strings with the same length as the input list with the predictions of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.load_model">
+<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.tfidf.TFIDFClassifier.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>load a classifier saved by the save_model method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> – string specifying the name of the file from which the model         is loaded. the standard format is ‘joblib’ and should be specified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.save_model">
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.tfidf.TFIDFClassifier.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>saves the (trained) classifier from sklearn using the joblib module</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> – string specifying the name of the file to where         the model is saved. the standard format is ‘joblib’ and should be specified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.score">
+<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_data_path</span></em>, <em class="sig-param"><span class="n">text_col_name</span></em>, <em class="sig-param"><span class="n">label_col_name</span></em>, <em class="sig-param"><span class="n">delimiter</span></em>, <em class="sig-param"><span class="n">verbose</span></em>, <em class="sig-param"><span class="n">class_averaging</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.tfidf.TFIDFClassifier.score" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_data_path</strong> – string specifying the file that contains the data points that have to be         scored</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the column containing the mails         in the csv file</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the column containing the labels of the mails         in the csv file</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter of the csv file, defaults to “,”</p></li>
+<li><p><strong>quotechar</strong> – specifying the character as quotechar in the csv reader. defaults to “</p></li>
+<li><p><strong>verbose</strong> – integer specifying the verbosity of the returned score, below are the possible         options:             1: return only accuracy             2: return overall accuracy, precision, recall and f1             3: return detailed sklearn classification report         Because the dataset is multiclass and there is possible class imbalance, weighted versions         of all classification scores are used</p></li>
+<li><p><strong>class_averaging</strong> – specifies the kind of averaging to use for the scoring in a multiclass         classification setting. see Sklearn documentation for more details on the options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>scores indicating the performance of the model, depends on level of verbosity set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.train_from_file">
+<code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_data_path</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="o">=</span><span class="default_value">'&quot;'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.tfidf.TFIDFClassifier.train_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>trains a model with data loaded from a csv file where the columns specifying the text and labels
+are arguments to the function</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>train_data_path</strong> – string specifying the file that contains the data points that the classifier is          trained on</p></li>
@@ -49,6 +157,19 @@
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.tfidf.TFIDFClassifier.train_from_strings">
+<code class="sig-name descname">train_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_data</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Tuple<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.tfidf.TFIDFClassifier.train_from_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>trains a model from an input list ‘train_data’ of tuples where each tuple specifies a data point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_data</strong> – list of tuples of the form [(x_1, y_1), (x_2, y_2), …, (x_n, y_n)]         specifying the text label pairs used for training.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -71,22 +192,16 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../msc/anonymization.html">Anonymizing Text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../msc/traintestsplitting.html">Splitting Into Train and Test files</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">TF-IDF Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pretrainedbert.html">Pretrained BERT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../msc/traintestsplitting.html" title="previous chapter">Splitting Into Train and Test files</a></li>
-      <li>Next: <a href="pretrainedbert.html" title="next chapter">Pretrained BERT</a></li>
   </ul></li>
 </ul>
 </div>

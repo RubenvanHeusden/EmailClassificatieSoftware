@@ -26,26 +26,12 @@ class Anonymizer:
     This class implements a automatic anonymization algorithm for Dutch text using the
     spaCy Named Entity Recognition algorithm
 
-    attributes
+    Attributes
     ----------
     nlp_model: spacy_model
         the subset of spaCy models for the language passed in as parameters, the Dutch version
         is used in this class
 
-    methods
-    -------
-    anonymize_string(string)
-        method that performs anonymization for a single string (this method is also used by the
-        anonymize file method)
-
-    anonymize_file(file_name, delimiter, quotechar, text_col_name)
-        convenience method to anonymize all the text entries in a file.
-
-    get_replacement_string
-        return the string currently set as the replacement string for named entities
-
-    set replacement_string(replacement_string)
-        set the argument replacement_string as the string to use when removing named entities
     """
     def __init__(self, replacement_string: str = ""):
         """
@@ -56,6 +42,10 @@ class Anonymizer:
 
     def anonymize_string(self, string: str) -> str:
         """
+
+        method that performs anonymization for a single string (this method is also used by the
+        anonymize file method)
+
         :param string: string to be anonymized
         :return: string anonymized by the spaCy Named Entity Recognition algorithm
         """
@@ -68,11 +58,17 @@ class Anonymizer:
                        text_col_name: str = "text") -> pd.DataFrame:
 
         """
+
+        convenience method to anonymize all the text entries in a file.
+
+
         :param file_name: string specifying the name of the csv file which contains the data to be anonymized.
         :param delimiter: the delimiter used for the reading of the csv file, default is ','
         :param quotechar: the quotation character used by the csv reader, default is '"'
-        :param text_col_name: string signifying the name of the column in the csv file containing the text that is te be anonymized.
-        :return csv_file: returns the pandas DataFrame as specified by the filename parameter with the text column anonymized.
+        :param text_col_name: string signifying the name of the column in the csv file containing the text \
+        that is te be anonymized.
+        :return csv_file: returns the pandas DataFrame as specified by the filename parameter with the text \
+        column anonymized.
 
         """
         csv_file = pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)
@@ -83,12 +79,18 @@ class Anonymizer:
 
     def get_replacement_string(self) -> str:
         """
+
+        returns the string currently set as the replacement string for named entities
+
         :return: return the current replacement string for Named Entities
         """
         return self.replacement_string
 
     def set_replacement_string(self, replacement_string: str) -> None:
         """
+
+        set the argument replacement_string as the string to use when removing named entities
+
         :param replacement_string: string that is to be set as the replacement string
         in the algorithm
         """

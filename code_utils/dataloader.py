@@ -19,23 +19,20 @@ class CustomDataLoader:
     ---------
     data: (sub) class of torch.data.Dataset containing the read-in data from a csv file.
 
-
-    Methods
-    -------
-    construct_iterators(batch_size, is_test_set,text_col_name, label_col_name)
-        This method is used to construct iterators that can be used during the training of the neural
-        networks from the dataset created by CSVDataset. When used for evaluation the 'is_test_set' should
-        be set to True.
     """
     def __init__(self, data: Dataset):
         """
-        :param data:
+        :param data: (sub) class of torch.data.Dataset containing the read-in data from a csv file.
         """
         self.data = data
 
     def construct_iterators(self, batch_size: int, is_test_set: bool = False,text_col_name: str = 'text',
                             label_col_name: str = 'label') -> DataIterator:
         """
+        This method is used to construct iterators that can be used during the training of the neural
+        networks from the dataset created by CSVDataset. When used for evaluation the 'is_test_set' should
+        be set to True.
+
         :param batch_size: integer specifying the size of the batches used in the training of a model
         :param is_test_set: Boolean specifying whether or not the iterator is used as a test set or not.
         When set to True this disables the shuffling of the dataset

@@ -29,7 +29,6 @@ class CNN(nn.Module):
         :param dropbout_probs: float specifying the dropout probabilities
         """
         super(CNN, self).__init__()
-        self.params = locals()
         self.input_channels = input_channels
         self.output_dim = output_dim
         self.filters = nn.ModuleList([nn.Conv2d(in_channels=1, out_channels=num_filters,

@@ -23,12 +23,6 @@ class CSVDataset:
     file_name:string
         string specifying the name and location of the csv file containing the training data
 
-    Methods
-    -------
-    load(delimiter, quotechar, text_col_name, label_col_name)
-        This methods is responsible for loading in the data from the csv file and converting it into
-        a torchtext TabularDataset, it will automatically only select the columns from the file that are
-        specified by the 'text_col_name' and 'label_col_name' parameters
     """
 
     def __init__(self, text_field: Field, file_name: str):
@@ -44,6 +38,11 @@ class CSVDataset:
     def load(self, delimiter: str = ",", quotechar: str = '"', text_col_name: str = 'text',
              label_col_name: str = 'label') -> TabularDataset:
         """
+
+        This methods is responsible for loading in the data from the csv file and converting it into
+        a torchtext TabularDataset, it will automatically only select the columns from the file that are
+        specified by the 'text_col_name' and 'label_col_name' parameters
+
         :param delimiter: string specifying the delimiter used when reading in the csv file
         :param quotechar: string specifying the quotechar used when reading in the csvfile
         :param text_col_name: string specifying the name of the column in the csv file containing

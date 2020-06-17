@@ -15,7 +15,6 @@
     <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Pretrained BERT" href="pretrainedbert.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -35,14 +34,14 @@
   <div class="section" id="bidirectional-lstm-classifier">
 <h1>Bidirectional LSTM Classifier<a class="headerlink" href="#bidirectional-lstm-classifier" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="models.bilstmclassifier.BiLSTMClassifier">
-<em class="property">class </em><code class="sig-prename descclassname">models.bilstmclassifier.</code><code class="sig-name descname">BiLSTMClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_outputs</span></em>, <em class="sig-param"><span class="n">hidden_dim</span><span class="o">=</span><span class="default_value">256</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">device(type='cuda')</span></em>, <em class="sig-param"><span class="n">word_embedding_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/resources/word_embeddings/combined-320.tar/320/'</span></em>, <em class="sig-param"><span class="n">max_seq_len</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">models.bilstmclassifier.</code><code class="sig-name descname">BiLSTMClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_outputs</span></em>, <em class="sig-param"><span class="n">hidden_dim</span><span class="o">=</span><span class="default_value">256</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">device(type='cuda')</span></em>, <em class="sig-param"><span class="n">word_embedding_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/resources/word_embeddings/combined-320.tar/320/'</span></em>, <em class="sig-param"><span class="n">max_seq_len</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>This class implements a Bidirectional LSTM classifier based on the version from PyTorch
 It deals with the various aspects of the training, such as converting the data into the appropriate
 format and logging the training process via TensorBoard</p>
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.device">
-<code class="sig-name descname">device</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.device" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">device</code></dt>
 <dd><p>torch.device indicating on which device the model and the inputs should be, either on the GPU or the
 CPU. The default behaviour is to put the model and the inputs on the GPU when available.</p>
 <dl class="field-list simple">
@@ -53,8 +52,8 @@ CPU. The default behaviour is to put the model and the inputs on the GPU when av
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.model">
-<code class="sig-name descname">model</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.model" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">model</code></dt>
 <dd><p>The main model used for classification, in this case the Bidirectional LSTM model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -64,8 +63,8 @@ CPU. The default behaviour is to put the model and the inputs on the GPU when av
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.num_outputs">
-<code class="sig-name descname">num_outputs</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.num_outputs" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">num_outputs</code></dt>
 <dd><p>Integer specifying the number of outputs of the model. This should be set to the number of unique classes
 in the dataset. (the ‘get_num_labels_from_file’ method can be used to retrieve this from the csv file
 when this is not known)</p>
@@ -77,8 +76,8 @@ when this is not known)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.has_trained">
-<code class="sig-name descname">has_trained</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.has_trained" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">has_trained</code></dt>
 <dd><p>Boolean specifying whether the model has already been trained. This is used to ensure that the evaluaton
 or scoring is not accidentally run on an untrained model.</p>
 <dl class="field-list simple">
@@ -89,8 +88,8 @@ or scoring is not accidentally run on an untrained model.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier._TEXT">
-<code class="sig-name descname">_TEXT</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier._TEXT" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">_TEXT</code></dt>
 <dd><p>torchtext.data.Field instance specifying several parameters of the reading of the data such as
 whether or not to convert all text to lowercase and the type and language of the tokenizer used.</p>
 <dl class="field-list simple">
@@ -101,8 +100,8 @@ whether or not to convert all text to lowercase and the type and language of the
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier._words">
-<code class="sig-name descname">_words</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier._words" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">_words</code></dt>
 <dd><p>list with all the words present in the Dutch embedding file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -112,8 +111,8 @@ whether or not to convert all text to lowercase and the type and language of the
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier._embed_dict">
-<code class="sig-name descname">_embed_dict</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier._embed_dict" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">_embed_dict</code></dt>
 <dd><p>dictionary mapping words in the embeddings file to indices into the embedding matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -123,8 +122,8 @@ whether or not to convert all text to lowercase and the type and language of the
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier._embeddings">
-<code class="sig-name descname">_embeddings</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier._embeddings" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">_embeddings</code></dt>
 <dd><p>torch.Tensor of size [num_words, embedding_dim] containing the word embeddings</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -141,8 +140,8 @@ for later use in the evaluation methods</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier._embed_dim">
-<code class="sig-name descname">_embed_dim</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier._embed_dim" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">_embed_dim</code></dt>
 <dd><p>Integer specifying the dimension of the embeddings used in the embedding file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -152,8 +151,8 @@ for later use in the evaluation methods</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="models.bilstmclassifier.BiLSTMClassifier._label_names">
-<code class="sig-name descname">_label_names</code><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier._label_names" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">_label_names</code></dt>
 <dd><p>list containing the names of the unique labels in the dataset, this is used for converting the
 integer representation used in training back to the original labels for easier interpretation</p>
 <dl class="field-list simple">
@@ -165,44 +164,105 @@ integer representation used in training back to the original labels for easier i
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">train_from_file(file_name, batch_size, num_epochs, delimiter, quotechar, text_col_name, label_col_name,</code></dt>
-<dd></dd></dl>
+<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; list</dt>
+<dd><blockquote>
+<div><p>method used for classifying a set of examples for a file with a trained classifier</p>
+</div></blockquote>
+<p>This method reads in a file, parses it into the correct format and classifies the contents
+of the file. Throws an error when the model is not trained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – string specifying the location and name of the file that contains the training dat</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter used in the training csv file</p></li>
+<li><p><strong>quotechar</strong> – string specifying the quotechar used in the training csv file</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the column containing the mails in the csv file</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the column containing the labels of the mails in the          csv file</p></li>
+<li><p><strong>batch_size</strong> – integer specifying the batch size, this will affect the size of the batches fed into         the model this can be set lower if memory issues occur</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns a list of results, where the result indices from the model have been converted back          to the original class names from the file</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt>
-<code class="sig-name descname">learning_rate,max_seq_len, logging_dir)</code></dt>
+<code class="sig-name descname">classify_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">strings</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; list</dt>
+<dd><p>method that can be used for classifying one or multiple examples with a trained classifier</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>strings</strong> – a single string or a list of strings representing the pieces of text that should be classified</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list containing the predictions of the models for the inputted pieces of text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dd><p>method that can be used to load a classifier saved in the .pt format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – string specifying the name and location of the saved model to be loaded</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dd><p>method that can be used to save a (trained) classifier</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – string specifying the location and name of the destination of the saved model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="o">=</span><span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
+<dd><p>method that can be used score that model on an unseen test file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – string specifying the location and name of the file that contains the training dat</p></li>
+<li><p><strong>delimiter</strong> – string specifying the delimiter used in the training csv file</p></li>
+<li><p><strong>quotechar</strong> – string specifying the quotechar used in the training csv file</p></li>
+<li><p><strong>text_col_name</strong> – string specifying the name of the column containing the mails in the csv file</p></li>
+<li><p><strong>label_col_name</strong> – string specifying the name of the column containing the labels of the mails         in the csv file</p></li>
+<li><p><strong>batch_size</strong> – integer specifying the batch size, this will affect the size of the batches fed into          the model this can be set lower if memory issues occur</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">logging_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/runs/'</span></em><span class="sig-paren">)</span> &#x2192; None</dt>
 <dd><p>The main method of this class, implementing a training procedure for the model and handling
 the proper loading of the dataset</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.classify_from_file">
-<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span></em>, <em class="sig-param"><span class="n">quotechar</span></em>, <em class="sig-param"><span class="n">text_col_name</span></em>, <em class="sig-param"><span class="n">label_col_name</span></em>, <em class="sig-param"><span class="n">batch_size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.classify_from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>method used for classifying a set of examples for a file with a trained classifier</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.classify_from_strings">
-<code class="sig-name descname">classify_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">strings</span></em>, <em class="sig-param"><span class="n">max_seq_len</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.classify_from_strings" title="Permalink to this definition">¶</a></dt>
-<dd><p>method that can be used for classifying one or multiple examples with a trained classifier</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.score">
-<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span></em>, <em class="sig-param"><span class="n">quotechar</span></em>, <em class="sig-param"><span class="n">text_col_name</span></em>, <em class="sig-param"><span class="n">label_col_name</span></em>, <em class="sig-param"><span class="n">batch_size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.score" title="Permalink to this definition">¶</a></dt>
-<dd><p>method that can be used score that model on an unseen test file</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.save_model">
-<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.save_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>method that can be used to save a (trained) classifier</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="models.bilstmclassifier.BiLSTMClassifier.load_model">
-<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.load_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>method that can be used to load a classifier saved in the .pt format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – string specifying the location and name of the file that contains the training dat</p></li>
+<li><p><strong>batch_size</strong> – integer specifying the batch size, this will affect the size of the batches fed into the         model this can be set lower if memory issues occur</p></li>
+<li><p><strong>num_epochs</strong> – integer specifying the number of epochs for which the model is trained. The right amount of</p></li>
+</ul>
+</dd>
+</dl>
+<p>epochs can differ for different datasets and it is recommended to inspect the produced TensorBoard logs
+to see if the model has converged
+:param delimiter: string specifying the delimiter used in the training csv file
+:param quotechar: string specifying the quotechar used in the training csv file
+:param text_col_name: string specifying the name of the column containing the mails in the csv file
+:param label_col_name: string specifying the name of the column containing the labels of the mails in         the csv file
+:param learning_rate: float specifying the learning rate of the model, this can affect the speed of         convergence of the model
+:param logging_dir: directory to which the Tensorboard logging files are saved</p>
 </dd></dl>
 
 </dd></dl>
@@ -227,21 +287,16 @@ the proper loading of the dataset</p>
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../msc/anonymization.html">Anonymizing Text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../msc/traintestsplitting.html">Splitting Into Train and Test files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tfidf.html">TF-IDF Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pretrainedbert.html">Pretrained BERT</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Bidirectional LSTM Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="pretrainedbert.html" title="previous chapter">Pretrained BERT</a></li>
   </ul></li>
 </ul>
 </div>
