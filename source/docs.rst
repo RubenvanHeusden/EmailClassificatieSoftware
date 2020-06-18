@@ -11,3 +11,4 @@ Docs
    models/dataiterator
    models/csvdataset
    models/dataloader
+   models/multigate

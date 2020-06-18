@@ -95,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="csvdataset.html">CSV Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dataloader.html">Dataloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multigate.html">Multigate Mixture of Experts Model</a></li>
 </ul>
 </li>
 </ul>
@@ -296,7 +297,7 @@ integer representation used in training back to the original labels for easier i
 
 <dl class="py method">
 <dt id="models.bilstmclassifier.BiLSTMClassifier.classify_from_file">
-<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.classify_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">64</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#models.bilstmclassifier.BiLSTMClassifier.classify_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>method used for classifying a set of examples for a file with a trained classifier</p>
 </div></blockquote>
@@ -309,7 +310,6 @@ of the file. Throws an error when the model is not trained.</p>
 <li><p><strong>delimiter</strong> – string specifying the delimiter used in the training csv file</p></li>
 <li><p><strong>quotechar</strong> – string specifying the quotechar used in the training csv file</p></li>
 <li><p><strong>text_col_name</strong> – string specifying the name of the column containing the mails in the csv file</p></li>
-<li><p><strong>label_col_name</strong> – string specifying the name of the column containing the labels of the mails in the          csv file</p></li>
 <li><p><strong>batch_size</strong> – integer specifying the batch size, this will affect the size of the batches fed into         the model this can be set lower if memory issues occur</p></li>
 </ul>
 </dd>

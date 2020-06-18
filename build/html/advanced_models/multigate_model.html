@@ -173,10 +173,32 @@ model from a research perspective and it might perform better on a different set
 this could mean predicting the category and emotion of a piece of text at the same time. This means that if you want
 to use this model your dataset should include different tasks and labels for these tasks.</p>
 <p>When reading in the data from the file the model will look for the names of the task headers in order, so be careful
-when inputting the names of the column that you put them in the same folder as in the csv file (more info in this later).</p>
+when inputting the names of the column that you put them in the same folder as in the csv file.</p>
 </div>
 <div class="section" id="training-the-model">
 <h2>Training the model<a class="headerlink" href="#training-the-model" title="Permalink to this headline">¶</a></h2>
+<p>If you have set up the data properly as described above, training the model is actually quite easy.
+As usual, we will start by setting up the classifier and setting some trianing parameters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MultigateModel</span><span class="p">(</span><span class="n">num_outputs_list</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">target_names_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;col_a&quot;</span><span class="p">,</span> <span class="s2">&quot;col_b&quot;</span><span class="p">],</span> <span class="n">max_seq_len</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="n">n_experts</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As mentioned before it is important that the column headers you give to the ‘target_names_list’ appear in the same order
+as in the file, this also holds for the ‘num_outputs_list’, which is just the number of unique classes for each task.
+Just like with the CNN and LSTM models, if you don’t know these in advance you can just use the ‘get_num_labels_from_file’
+methods from the utils file to get the correct number of labels for each task. The ‘n_experts’ parameter indicates how
+many models are used in the ‘shared bottom layer’, the more you choose here the bigger the model gets, meaning it is slower
+to train.</p>
+<p>Now we are ready to train the model!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">train_from_file</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;test_data/multicol_train.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that we have train the model, we can just use the same methods available to us as with the simpler models to make some
+predictions or saved the model if we are happy with it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">classify_from_strings</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;dit is nog een test&quot;</span><span class="p">,</span> <span class="s2">&quot;laatse zin&quot;</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="s1">&#39;awesome_multitask_model.pt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 
