@@ -15,6 +15,8 @@ Dutch by Stephan Tulkens and Chris Emmery and Walter Daelemans :cite:`tulkens201
    installation
    getting_started
  
+   advanced_models
+ 
    utilities
  
    docs
@@ -27,4 +29,6 @@ Indices and tables
 * :ref:`search`
 
 
+References
+==========
 .. bibliography:: refs.bib

@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The BERT model &mdash; EmailClassificatie 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Multigate Mixture-of-Experts(MMoE) model" href="multigate_model.html" />
+    <link rel="prev" title="Advanced Models" href="../advanced_models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EmailClassificatie
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../advanced_models.html">Advanced Models</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The BERT model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fine-tunining-the-model">Fine-Tunining the model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multigate_model.html">The Multigate Mixture-of-Experts(MMoE) model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EmailClassificatie</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../advanced_models.html">Advanced Models</a> &raquo;</li>
+        
+      <li>The BERT model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/advanced_models/bert_model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-bert-model">
+<h1>The BERT model<a class="headerlink" href="#the-bert-model" title="Permalink to this headline">¶</a></h1>
+<p>The Bidirectional Transformer (BERT) is a state-of-the-art model developed by Devlin et al. <a class="bibtex reference internal" href="../index.html#devlin2018bert" id="id1">[DCLT18]</a> at Google.
+By using a Transformer model as a building block it is able to achieve very good performances on a variety of language tasks.
+The model used in this research is developed by HuggingFace Transformers, who have also made several pretrained versions available,
+including a Dutch Model. Normally, these pretrained models still have to be fine-tuned on a specific task, which is implemented in this
+package. Please note that the shear size of the BERT model means that a decent quality GPU is needed in order to train this model manually.</p>
+<div class="section" id="fine-tunining-the-model">
+<h2>Fine-Tunining the model<a class="headerlink" href="#fine-tunining-the-model" title="Permalink to this headline">¶</a></h2>
+<p>We will first start by instantiating an instance of the BERT model that we will use for training.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bert_model</span> <span class="o">=</span> <span class="n">PretrainedBert</span><span class="p">(</span><span class="n">path_to_data</span><span class="o">=</span><span class="s2">&quot;test_data/train.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now this model can either be used to fine-tune a model for classification or use an existing model.
+As the training procedure for a BERT model can be quite involved, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">PretrainedBert.train_from_file()</span></code> method
+uses default parameters for most options, and set to values that have shown to work well with the dataset used in the research.</p>
+<p>Now if you have enough GPU power you can train the model by calling:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bert_model</span><span class="o">.</span><span class="n">train_from_file</span><span class="p">(</span><span class="s1">&#39;test_data/&#39;</span><span class="p">,</span> <span class="n">use_eval</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will expect the ‘test_data’ folder to contain both a train.csv and test.csv file with 3 columns, namely
+[‘idx’, ‘text’, ‘label’]. if we set <cite>use_eval=False</cite> the model will not use the test.csv file and no performance statistics
+will be calculated after training. Be aware that depending on the number of epochs you set, the training can take quite some time.</p>
+<p>Now the loading of the model is slightly different than that from the TF-IDF, BiLSTM and CNN models.
+Instead of the model automatically being loaded after calling the training command, the model still has to be loaded separately here.
+This has to be done because of the specific way this is implemented in the HuggingFace code and the fact that the model needs extra
+information stored in files created during training.</p>
+<p>We will load the model after training:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bert_model</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_saved_model</span><span class="o">=</span><span class="s1">&#39;bert_training/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that we have loaded the model we can use it in much the same way as the other models! Let’s try this out
+by classifying a sentence.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bert_model</span><span class="o">.</span><span class="n">classify_from_strings</span><span class="p">(</span><span class="s2">&quot;Ik ben wel benieuwd naar dit nieuwe BERT model&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And that’s it! Hopefully you are now a bit more familiar with the interface for working with the BERT model,
+and don’t forget to check out the example script for the model if you want to see some more examples.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="multigate_model.html" class="btn btn-neutral float-right" title="The Multigate Mixture-of-Experts(MMoE) model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../advanced_models.html" class="btn btn-neutral float-left" title="Advanced Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ruben van Heusden
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

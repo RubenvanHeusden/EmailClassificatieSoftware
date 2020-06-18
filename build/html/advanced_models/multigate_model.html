@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pretrained BERT &mdash; EmailClassificatie 1.0 documentation</title>
+  <title>The Multigate Mixture-of-Experts(MMoE) model &mdash; EmailClassificatie 1.0 documentation</title>
   
 
   
@@ -34,7 +34,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utilities" href="../utilities.html" />
+    <link rel="prev" title="The BERT model" href="bert_model.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,10 +81,18 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_models.html">Advanced Models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../advanced_models.html">Advanced Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bert_model.html">The BERT model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Multigate Mixture-of-Experts(MMoE) model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#notes-on-the-data">Notes on the Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#training-the-model">Training the model</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
 </ul>
@@ -130,13 +140,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Pretrained BERT</li>
+          <li><a href="../advanced_models.html">Advanced Models</a> &raquo;</li>
+        
+      <li>The Multigate Mixture-of-Experts(MMoE) model</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/models/pretrainedbert.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/advanced_models/multigate_model.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -149,8 +161,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pretrained-bert">
-<h1>Pretrained BERT<a class="headerlink" href="#pretrained-bert" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-multigate-mixture-of-experts-mmoe-model">
+<h1>The Multigate Mixture-of-Experts(MMoE) model<a class="headerlink" href="#the-multigate-mixture-of-experts-mmoe-model" title="Permalink to this headline">¶</a></h1>
+<p>As per of the research conducted, a Multigate Mixture-of-Experts model was implemented and tested
+on a dataset supplied by the Gemeente. Although the performance of the model is not better than that
+of simpler models for this specific task, it is still included in the package because it is an interesting
+model from a research perspective and it might perform better on a different set of tasks not test in this research.</p>
+<div class="section" id="notes-on-the-data">
+<h2>Notes on the Data<a class="headerlink" href="#notes-on-the-data" title="Permalink to this headline">¶</a></h2>
+<p>In short, a Multitask model attempts to learn several tasks at the same time. In the case of text classification,
+this could mean predicting the category and emotion of a piece of text at the same time. This means that if you want
+to use this model your dataset should include different tasks and labels for these tasks.</p>
+<p>When reading in the data from the file the model will look for the names of the task headers in order, so be careful
+when inputting the names of the column that you put them in the same folder as in the csv file (more info in this later).</p>
+</div>
+<div class="section" id="training-the-model">
+<h2>Training the model<a class="headerlink" href="#training-the-model" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -158,6 +185,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../utilities.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bert_model.html" class="btn btn-neutral float-left" title="The BERT model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

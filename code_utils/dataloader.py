@@ -26,7 +26,7 @@ class CustomDataLoader:
         """
         self.data = data
 
-    def construct_iterators(self, batch_size: int, is_test_set: bool = False,text_col_name: str = 'text',
+    def construct_iterators(self, batch_size: int, is_test_set: bool = False, text_col_name: str = 'text',
                             label_col_name: str = 'label') -> DataIterator:
         """
         This method is used to construct iterators that can be used during the training of the neural

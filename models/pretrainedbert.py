@@ -57,7 +57,8 @@ class PretrainedBERT:
 
     @staticmethod
     def train_from_file(path_to_datadir: str, max_seq_len: int = 128, output_dir: str = ROOT_DIR+'/bert_training/',
-                        tensorboard_dir: str = ROOT_DIR+'/bert_runs/', do_eval: bool = False) -> None:
+                        tensorboard_dir: str = ROOT_DIR+'/bert_runs/', do_eval: bool = False,
+                        num_epochs: int = 10) -> None:
         """
         This method can be used to train the bert model. It acts as a wrapper around the code in the
         'train_bert.py' file and sets most parameters to a decent default value. If more control is needed the
@@ -75,6 +76,7 @@ class PretrainedBERT:
         :param tensorboard_dir: string specific the directory where the tensorboard log file should be stored.
         :param do_eval: Boolean specifying whether or not to evaluate the performance of the model on a test set \
         after training.
+        :param num_epochs: int specifying for how many epochs the model should be trained.
         :return: None
         """
         args = {'data_dir': path_to_datadir, 'model_type': 'bert', 'model_name_or_path': 'bert-base-dutch-cased',
@@ -83,7 +85,7 @@ class PretrainedBERT:
                 'evaluate_during_training': False, 'do_lower_case': False, 'per_gpu_train_batch_size': 8,
                 'per_gpu_eval_batch_size': 8, 'gradient_accumulation_steps': 1, 'learning_rate':
                 2e-5, 'weight_decay': 0.0, 'adam_epsilon': 1e-8, 'max_grad_norm': 1.0, 'num_train_epochs':
-                10.0, 'max_steps': -1, 'warmup_steps': 0, 'tensorboard_dir': tensorboard_dir, 'logging_steps': 500,
+                num_epochs, 'max_steps': -1, 'warmup_steps': 0, 'tensorboard_dir': tensorboard_dir, 'logging_steps': 500,
                 'save_steps': 500, 'eval_all_checkpoints': False, 'no_cuda': False, 'overwrite_output_dir': True,
                 'overwrite_cache': True, 'seed': 42, 'fp16': False, 'fp16_opt_level': "0.1", 'local_rank': -1,
                 'server_ip': "", 'server_port': "", 'n_gpu': 1}

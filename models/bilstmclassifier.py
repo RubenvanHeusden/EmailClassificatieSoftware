@@ -5,6 +5,7 @@ procedure.
 """
 import torch
 import torchtext
+import pandas as pd
 import torch.nn as nn
 import torch.optim as optim
 from typing import List, Union
@@ -159,7 +160,7 @@ class BiLSTMClassifier:
         return None
 
     def classify_from_file(self, file_name, delimiter: str = ",", quotechar: str = '"', text_col_name: str = "text",
-                           label_col_name: str = 'label', batch_size: int = 64) -> list:
+                           batch_size: int = 64) -> list:
         """
 
          method used for classifying a set of examples for a file with a trained classifier
@@ -171,8 +172,6 @@ class BiLSTMClassifier:
         :param delimiter: string specifying the delimiter used in the training csv file
         :param quotechar: string specifying the quotechar used in the training csv file
         :param text_col_name: string specifying the name of the column containing the mails in the csv file
-        :param label_col_name: string specifying the name of the column containing the labels of the mails in the \
-         csv file
         :param batch_size: integer specifying the batch size, this will affect the size of the batches fed into \
         the model this can be set lower if memory issues occur
         :return: returns a list of results, where the result indices from the model have been converted back \
@@ -180,23 +179,28 @@ class BiLSTMClassifier:
         """
         assert self.has_trained
 
-        print("--- Starting with reading in the dataset ---")
-        dataset_loader = CSVDataset(text_field=self._TEXT, file_name=file_name)
-        dataset = dataset_loader.load(delimiter=delimiter, quotechar=quotechar, text_col_name=text_col_name,
-                                      label_col_name=label_col_name)
-        print("--- Finished with reading in the dataset ---")
+        strings = pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)[text_col_name].tolist()
 
-        dloader = CustomDataLoader(dataset)
-        data_iterator = dloader.construct_iterators(batch_size=batch_size, text_col_name=text_col_name,
-                                                    label_col_name=label_col_name, is_test_set=True)
+        if isinstance(strings, str):
+            strings = [strings]
+        if isinstance(strings, list):
+            strings = [[string] for string in strings]
+
+        fields = [('text', self._TEXT)]
+
+        list_of_examples = [Example.fromlist(string, fields) for string in strings]
+        dataset = torchtext.data.Dataset(list_of_examples, fields)
+
+        data = Iterator(dataset, batch_size=batch_size, device=torch.device("cpu"), sort=False, sort_within_batch=False,
+                        repeat=False, shuffle=False)
 
         predictions = []
 
-        for X, _ in data_iterator:
-            # Set the model to evaluation mode, important because of the Dropout Layers
+        for item in data:
+            x = item.text
             self.model.to(self.device)
             self.model = self.model.eval()
-            outputs = self.model([X[0].to(self.device), X[1].to(self.device)])
+            outputs = self.model([x[0].to(self.device), x[1].to(self.device)])
             predictions.extend(outputs.detach().cpu().argmax(1).tolist())
         results = [self._label_names[i] for i in predictions]
         return results

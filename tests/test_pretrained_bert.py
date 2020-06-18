@@ -5,7 +5,6 @@ from models.pretrainedbert import PretrainedBERT
 class TestPretrainedBert(unittest.TestCase):
     def setUp(self) -> None:
         pass
-        # self.bert_model = PretrainedBert(path_to_model="")
 
     def test_single_example(self):
         pass

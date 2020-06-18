@@ -6,6 +6,7 @@ import torch
 import tarfile
 import pandas as pd
 from tqdm import tqdm
+from collections import defaultdict
 from configurations import ROOT_DIR
 from urllib.request import urlretrieve
 from code_utils.dataiterator import DataIterator
@@ -183,3 +184,123 @@ def get_num_labels_from_file(file_name: str, delimiter: str = ",", quotechar: st
     :return: Returns the (integer) amount of unique labels in the dataset
     """
     return pd.read_csv(file_name, sep=delimiter, quotechar=quotechar)[label_col_name].nunique()
+
+
+def multitask_training(model, criterion_dict, optimizer, scheduler, dataset, n_epochs=5, device=torch.device("cpu"),
+          save_path=None, save_name=None, tensorboard_dir=False, checkpoint_interval=5,
+          include_lengths=True, clip_val=0, balancing_epoch_num=0, balancing_mode=None):
+    # Set the model in training mode just to be safe
+    torch.cuda.empty_cache()
+    model.to(device)
+    model.train()
+
+    if tensorboard_dir:
+        writer = SummaryWriter(tensorboard_dir)
+    for epoch in range(n_epochs):
+        if save_path:
+            if epoch % checkpoint_interval == 0:
+                torch.save(model.state_dict(), "%s/%s_epoch_%d.pt" % (save_path, save_name, epoch))
+        epoch_weights = defaultdict(list)
+        all_predictions = defaultdict(list)
+        all_ground_truth_labels = defaultdict(list)
+        epoch_running_loss = defaultdict(float)
+        # Calculate several training statistics
+        for i, batch in tqdm(enumerate(dataset)):
+            optimizer.zero_grad()
+            X, *targets, tasks = batch
+            for y in range(len(targets)):
+                targets[y] = targets[y].to(device)
+
+            if isinstance(X, tuple) or isinstance(X, list):
+                X = list(X)
+                for z in range(len(X)):
+                    X[z] = X[z].to(device)
+            else:
+                X = X.to(device)
+
+            loss = 0
+
+            outputs = model(X, tasks)
+            for p in range(len(tasks)):
+                all_predictions[tasks[p]].extend(outputs[p].detach().cpu().argmax(1).tolist())
+                # see if we need to even this out
+                loss += criterion_dict[tasks[p]](outputs[p], targets[p])
+
+            # training the network
+            loss.backward()
+            if clip_val:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), clip_val)
+
+            optimizer.step()
+
+            for t in range(len(tasks)):
+                all_ground_truth_labels[tasks[t]].extend(targets[t].cpu().tolist())
+                epoch_running_loss[tasks[t]] += loss.item()
+        scheduler.step()
+        for task in all_predictions.keys():
+            correct_list = [1 if a == b else 0 for a, b in zip(all_predictions[task], all_ground_truth_labels[task])]
+            acc = sum(correct_list) / len(correct_list)
+            if tensorboard_dir:
+                writer.add_scalar('loss_%s' % task, epoch_running_loss[task], epoch)
+                writer.add_scalar('accuracy_%s' % task, acc, epoch)
+    print('Finished Training')
+    torch.save(model.state_dict(), "%s/%s_epoch_%d.pt" % (save_path, save_name, epoch))
+    if tensorboard_dir:
+        writer.close()
+    return model
+
+
+def multitask_evaluation(model, dataset, device):
+    model.to(device)
+    # Set the model to evaluation mode, important because of the Dropout Layers
+    model = model.eval()
+    # Calculate several test statistics
+    epoch_weights = defaultdict(list)
+    all_predictions = defaultdict(list)
+    all_ground_truth_labels = defaultdict(list)
+    # Calculate several training statistics
+    for i, batch in tqdm(enumerate(dataset)):
+        X, *targets, tasks = batch
+
+        for y in range(len(targets)):
+            targets[y] = targets[y].to(device)
+
+        if isinstance(X, tuple):
+            X = list(X)
+            for z in range(len(X)):
+                X[z] = X[z].to(device)
+        else:
+            X = X.to(device)
+
+        outputs = model(X, tasks)
+
+        for p in range(len(tasks)):
+            all_predictions[tasks[p]].extend(outputs[p].detach().cpu().argmax(1).tolist())
+            all_ground_truth_labels[tasks[p]].extend(targets[p].cpu().tolist())
+            # see if we need to even this out
+
+    for task in all_predictions.keys():
+        correct_list = [1 if a == b else 0 for a, b in zip(all_predictions[task], all_ground_truth_labels[task])]
+        acc = sum(correct_list) / len(correct_list)
+        prog_string = "[|Train| Task: %s, Acc: %.3f, f_1: %.3f, recall: %.3f, precision, %.3f]" \
+                      % (task, acc,
+                 f1_score(all_ground_truth_labels[task], all_predictions[task], average="weighted"),
+                 recall_score(all_ground_truth_labels[task], all_predictions[task], average="weighted"),
+                 precision_score(all_ground_truth_labels[task], all_predictions[task], average="weighted"))
+        print(prog_string)
+
+
+def multitask_class_weighting(dataset, target_names):
+
+    task_weights = {}
+    task_totals = {task: [] for task in target_names}
+    for X, *targets, tasks in dataset:
+        for task, task_name in zip(targets, tasks):
+            task_totals[task_name].append(task)
+    for name in target_names:
+        task_y = torch.cat(task_totals[name], dim=0)
+        unique_task = torch.unique(task_y)
+        task_weights[name] = torch.from_numpy(compute_class_weight('balanced', classes=unique_task.data.numpy(),
+                                                  y=task_y.data.numpy())).float()
+
+    return task_weights

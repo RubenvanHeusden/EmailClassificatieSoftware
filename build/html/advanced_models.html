@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Docs &mdash; EmailClassificatie 1.0 documentation</title>
+  <title>Advanced Models &mdash; EmailClassificatie 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="TFIDFClassifier" href="models/tfidf.html" />
-    <link rel="prev" title="Utilities" href="utilities.html" /> 
+    <link rel="next" title="The BERT model" href="advanced_models/bert_model.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,19 +84,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_models.html">Advanced Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Docs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="models/tfidf.html">TFIDFClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/cnnclassifier.html">CNN Classifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/anonymizer.html">Anonymizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/traintestsplitter.html">Train Test Splitter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/dataiterator.html">DataIterator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/csvdataset.html">CSV Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models/dataloader.html">Dataloader</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_models/bert_model.html">The BERT model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_models/multigate_model.html">The Multigate Mixture-of-Experts(MMoE) model</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Docs</a></li>
 </ul>
 
             
@@ -142,13 +136,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Docs</li>
+      <li>Advanced Models</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/docs.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/advanced_models.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -161,19 +155,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="docs">
-<h1>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="advanced-models">
+<h1>Advanced Models<a class="headerlink" href="#advanced-models" title="Permalink to this headline">¶</a></h1>
+<p>Although the TF-IDF model is a nice and simple model, there might be cases
+when you would want to use a more advanced method, such as a CNN, LSTM or even a
+BERT model. This short guide provides an overview of some of these models with some examples
+on using them and general usage guidelines.
+For the CNN model and Bidirectional LSTM model it should be sufficient to inspect the examples in
+the ‘examples’ folder as they follow the exact same structure and support (allmost) all the same method
+calls as the TF-IDF classifier. Because the BERT and Multigate model are somewhat different
+they are explained in a bit more detailed here, although you can also simply look at the ‘examples’ folder
+if you are already more familiar with these models.</p>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="models/tfidf.html">TFIDFClassifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/cnnclassifier.html">CNN Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/anonymizer.html">Anonymizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/traintestsplitter.html">Train Test Splitter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/dataiterator.html">DataIterator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/csvdataset.html">CSV Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/dataloader.html">Dataloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_models/bert_model.html">The BERT model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_models/bert_model.html#fine-tunining-the-model">Fine-Tunining the model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_models/multigate_model.html">The Multigate Mixture-of-Experts(MMoE) model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_models/multigate_model.html#notes-on-the-data">Notes on the Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_models/multigate_model.html#training-the-model">Training the model</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -186,10 +189,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="models/tfidf.html" class="btn btn-neutral float-right" title="TFIDFClassifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="advanced_models/bert_model.html" class="btn btn-neutral float-right" title="The BERT model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="utilities.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
