@@ -11,6 +11,7 @@ import pandas as pd
 from tqdm import tqdm
 from typing import List
 from configurations import ROOT_DIR
+from sklearn.metrics import accuracy_score
 from bert_training_files.train_bert import main
 from transformers import BertForSequenceClassification, BertTokenizer
 
@@ -39,17 +40,20 @@ class PretrainedBERT:
         labels that are used in this specific research, the labels should match the labels present in the
         dataset
     """
-    def __init__(self, use_gpu: bool = False, path_to_data: str = ROOT_DIR+"/data/train.csv"):
+    def __init__(self, use_gpu: bool = False, path_to_data: str = ROOT_DIR+"/data/train.csv",
+                 label_col_name: str = 'label'):
         """
 
         :param use_gpu: Boolean specifying whether or not to use the GPU. This only influences \
         the usage of the GPU during evaluation as the BERT model must be trained on a gpu to \
         be able to be trained in reasonable time.
         :param path_to_data: path specifying the where the train.csv data file is located
+        :param label_col_name: parameter that indicates the name of the column where the labels of the \
+        text are stored
         """
         self.device = torch.device("cuda" if (torch.cuda.is_available() and use_gpu) else "cpu")
 
-        self._class_labels = pd.read_csv(path_to_data, sep=",", quotechar='"')['label'].unique()
+        self._class_labels = pd.read_csv(path_to_data, sep=",", quotechar='|')[label_col_name].unique()
 
         self.bert_model = None
 
@@ -80,13 +84,14 @@ class PretrainedBERT:
         :return: None
         """
         args = {'data_dir': path_to_datadir, 'model_type': 'bert', 'model_name_or_path': 'bert-base-dutch-cased',
-                'task_name': 'email_classification', 'output_dir': output_dir, 'config_name': "", 'tokenizer_name': "",
-                'cache_dir': "", 'max_seq_length': max_seq_len, 'do_train': True, 'do_eval': do_eval,
-                'evaluate_during_training': False, 'do_lower_case': False, 'per_gpu_train_batch_size': 8,
-                'per_gpu_eval_batch_size': 8, 'gradient_accumulation_steps': 1, 'learning_rate':
-                2e-5, 'weight_decay': 0.0, 'adam_epsilon': 1e-8, 'max_grad_norm': 1.0, 'num_train_epochs':
-                num_epochs, 'max_steps': -1, 'warmup_steps': 0, 'tensorboard_dir': tensorboard_dir, 'logging_steps': 500,
-                'save_steps': 500, 'eval_all_checkpoints': False, 'no_cuda': False, 'overwrite_output_dir': True,
+                'task_name': 'email_classification', 'output_dir': output_dir, 'config_name': "",
+                'tokenizer_name': "", 'cache_dir': "", 'max_seq_length': max_seq_len, 'do_train': True,
+                'do_eval': do_eval, 'evaluate_during_training': False, 'do_lower_case': False,
+                'per_gpu_train_batch_size': 8, 'per_gpu_eval_batch_size': 8, 'gradient_accumulation_steps': 1,
+                'learning_rate': 2e-5, 'weight_decay': 0.0, 'adam_epsilon': 1e-8, 'max_grad_norm': 1.0,
+                'num_train_epochs': num_epochs, 'max_steps': -1, 'warmup_steps': 0,
+                'tensorboard_dir': tensorboard_dir, 'logging_steps': 500, 'save_steps': 500,
+                'eval_all_checkpoints': False, 'no_cuda': False, 'overwrite_output_dir': True,
                 'overwrite_cache': True, 'seed': 42, 'fp16': False, 'fp16_opt_level': "0.1", 'local_rank': -1,
                 'server_ip': "", 'server_port': "", 'n_gpu': 1}
         if (
@@ -167,8 +172,8 @@ class PretrainedBERT:
         with torch.no_grad():
             model_output = self.bert_model(encoded_batch['input_ids'].to(self.device),
                                            attention_mask=encoded_batch['attention_mask'].to(self.device))
-
             predicted_classes = model_output[0].argmax(1)
+
             return [self._class_labels[i] for i in predicted_classes]
 
     def load_model(self, path_to_saved_model) -> None:
@@ -185,3 +190,33 @@ class PretrainedBERT:
         self.bert_tokenizer = BertTokenizer.from_pretrained(path_to_saved_model)
 
         return None
+
+    def score(self, file_name: str, delimiter: str = ",", quotechar: str = '"', text_col_name: str = 'text',
+              label_col_name: str = 'label', batch_size: int = 8) -> None:
+        """
+        Function that can be used to test the performance of the model on an unseen test set.
+        This function will call 'classify_batches' internally to do the classification
+
+        :param file_name: string indicating the csv file containing the text to be classified
+        :param delimiter: delimiter used in the csv file, to read the csv file
+        :param quotechar: quotechar used in the csv file, to read  the csv file
+        :param text_col_name: string signifying the name of the column in the csv file containing the \
+        text to be classified
+        :param label_col_name: string signifying the name of the column in the csv file containing the \
+        labels of the text to be classified
+        :param batch_size: amount of examples to feed to the network simultaneously, this \
+        can be lowered if memory issues are encountered
+        :return: None
+        """
+
+        assert self.bert_model
+
+        file_contents = pd.read_csv(file_name, sep=delimiter, quotechar=quotechar).dropna()
+        text_from_file = file_contents[text_col_name].tolist()
+        labels_from_file = file_contents[label_col_name].tolist()
+        batches = [text_from_file[i:i + batch_size] for i in range(0, len(text_from_file), batch_size)]
+        predictions = []
+        for batch in tqdm(batches):
+            predictions.extend(self.classify_batches(batch))
+        accuracy = accuracy_score(labels_from_file, predictions)
+        print(accuracy)
