@@ -11,3 +11,4 @@
 **/bert_model_for_toy_dataset
 make.bat
 Makefile
+**/model.pt
