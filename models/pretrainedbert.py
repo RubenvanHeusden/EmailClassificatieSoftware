@@ -181,7 +181,7 @@ class PretrainedBERT:
         Method that can be used to load a trained model. The PretrainedBert class saves models that
         are trained using 'train_from_files' automatically so there is no separate method for model saving.
 
-        :param path_to_saved_model: path to the directory containing the files created by the 'train_from_files'
+        :param path_to_saved_model: path to the directory containing the files created by the 'train_from_files' \
         method
         :return: None
         """

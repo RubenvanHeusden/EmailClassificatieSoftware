@@ -8,5 +8,6 @@
 **/word_embeddings
 **/runs
 **/saved_models
+**/bert_model_for_toy_dataset
 make.bat
 Makefile

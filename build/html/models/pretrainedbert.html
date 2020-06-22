@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pretrained BERT &mdash; EmailClassificatie 1.0 documentation</title>
+  <title>Pretrained BERT model &mdash; EmailClassificatie 1.0 documentation</title>
   
 
   
@@ -34,7 +34,8 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Multigate Mixture of Experts Model" href="multigate.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,12 +80,24 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_models.html">Advanced Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utilities.html">Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../docs.html">Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tfidf.html">TFIDFClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cnnclassifier.html">CNN Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bilstmclassifier.html">Bidirectional LSTM Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anonymizer.html">Anonymizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traintestsplitter.html">Train Test Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataiterator.html">DataIterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csvdataset.html">CSV Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataloader.html">Dataloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multigate.html">Multigate Mixture of Experts Model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pretrained BERT model</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -130,7 +143,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Pretrained BERT</li>
+          <li><a href="../docs.html">Docs</a> &raquo;</li>
+        
+      <li>Pretrained BERT model</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,8 +164,162 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pretrained-bert">
-<h1>Pretrained BERT<a class="headerlink" href="#pretrained-bert" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="pretrained-bert-model">
+<h1>Pretrained BERT model<a class="headerlink" href="#pretrained-bert-model" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="models.pretrainedbert.PretrainedBERT">
+<em class="property">class </em><code class="sig-prename descclassname">models.pretrainedbert.</code><code class="sig-name descname">PretrainedBERT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_gpu</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">path_to_data</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/data/train.csv'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.pretrainedbert.PretrainedBERT" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements an interface to a pretrained BERT model on Dutch data, handling the tokenization of the text
+and te conversion of the output of the model to the appropriate classes. This class can be used interact
+with a model trained using the Bert model in this module.</p>
+<dl class="py attribute">
+<dt id="models.pretrainedbert.PretrainedBERT.device">
+<code class="sig-name descname">device</code><a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.device" title="Permalink to this definition">¶</a></dt>
+<dd><p>if use_gpu is set to true and a gpu is available on the system the model and inputs will be run on
+the gpu. This is significantly faster than running the model on the gpu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>torch.device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="models.pretrainedbert.PretrainedBERT.bert_model">
+<code class="sig-name descname">bert_model</code><a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.bert_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of the BertForSequenceClassification model that is trained on the Dutch Language
+and used to classify the examples</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="models.pretrainedbert.PretrainedBERT.bert_tokenizer">
+<code class="sig-name descname">bert_tokenizer</code><a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.bert_tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>tokenizer for the BertModel this is trained on the Dutch language and used to convert sequences of strings
+to sequences of indices into the sentencepiece embeddings model of Bert.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="models.pretrainedbert.PretrainedBERT._class_labels">
+<code class="sig-name descname">_class_labels</code><a class="headerlink" href="#models.pretrainedbert.PretrainedBERT._class_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>labels that are used in this specific research, the labels should match the labels present in the
+dataset</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pretrainedbert.PretrainedBERT.classify_batches">
+<code class="sig-name descname">classify_batches</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_of_examples</span><span class="p">:</span> <span class="n">List</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.classify_batches" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method implements a way of classifying a list of examples by feeding batches into the network.
+This is significantly more efficient for classifying a list of examples than calling the
+“classify_from_strings” method on each item in the list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>list_of_examples</strong> – list of strings containing the texts to be classified by the Bert model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of predictions with the same length as the number of items in ‘list_of_examples’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pretrainedbert.PretrainedBERT.classify_from_file">
+<code class="sig-name descname">classify_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">8</span></em><span class="sig-paren">)</span> &#x2192; List<a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.classify_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function to classify the contents of a csv file. This function will call
+‘classify_batches’ internally to do the classification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – string indicating the csv file containing the text to be classified</p></li>
+<li><p><strong>delimiter</strong> – delimiter used in the csv file, to read the csv file</p></li>
+<li><p><strong>quotechar</strong> – quotechar used in the csv file, to read  the csv file</p></li>
+<li><p><strong>text_col_name</strong> – string signifying the name of the column in the csv file containing the         text to be classified</p></li>
+<li><p><strong>batch_size</strong> – amount of examples to feed to the network simultaneously, this         can be lowered if memory issues are encountered</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of predictions for the text found in the csv file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pretrainedbert.PretrainedBERT.classify_from_strings">
+<code class="sig-name descname">classify_from_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text_string</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; List<a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.classify_from_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that can be used to classify a string or a list of strings with the BERT Model.
+This does require that the model used for classification is first loaded via the
+‘load_model’ method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text_string</strong> – string that contains the text to be classified</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list containing the string representation of the most likely class according         to the Bert model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pretrainedbert.PretrainedBERT.load_model">
+<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_saved_model</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that can be used to load a trained model. The PretrainedBert class saves models that
+are trained using ‘train_from_files’ automatically so there is no separate method for model saving.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path_to_saved_model</strong> – path to the directory containing the files created by the ‘train_from_files’         method</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pretrainedbert.PretrainedBERT.score">
+<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">text_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">8</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that can be used to test the performance of the model on an unseen test set.
+This function will call ‘classify_batches’ internally to do the classification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – string indicating the csv file containing the text to be classified</p></li>
+<li><p><strong>delimiter</strong> – delimiter used in the csv file, to read the csv file</p></li>
+<li><p><strong>quotechar</strong> – quotechar used in the csv file, to read  the csv file</p></li>
+<li><p><strong>text_col_name</strong> – string signifying the name of the column in the csv file containing the         text to be classified</p></li>
+<li><p><strong>label_col_name</strong> – string signifying the name of the column in the csv file containing the         labels of the text to be classified</p></li>
+<li><p><strong>batch_size</strong> – amount of examples to feed to the network simultaneously, this         can be lowered if memory issues are encountered</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pretrainedbert.PretrainedBERT.train_from_file">
+<em class="property">static </em><code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_datadir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">max_seq_len</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">128</span></em>, <em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/bert_training/'</span></em>, <em class="sig-param"><span class="n">tensorboard_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'C:\\Users\\ruben\\Desktop\\gemeente_deliverables\\gemeente_github_code\\EmailClassificatieSoftware/bert_runs/'</span></em>, <em class="sig-param"><span class="n">do_eval</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#models.pretrainedbert.PretrainedBERT.train_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method can be used to train the bert model. It acts as a wrapper around the code in the
+‘train_bert.py’ file and sets most parameters to a decent default value. If more control is needed the
+specific functions of the parameters in the model can be found in the documentation of the Huggingface package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_datadir</strong> – string specifying the path to the data directory. Here the train file is read in         and used for training. By default this method does not perform evaluation so there is no need for a ‘test.csv’         file however if do_eval is set to True is possible. It is important to note that because of the specifics          of the huggingface package the file(s) should be called ‘train.csv’ (and ‘test.csv’ if do_eval = True)</p></li>
+<li><p><strong>max_seq_len</strong> – Integer specifying the maximum length to which all the sentences are truncated. If memory         issues occur, it is possible to set this parameter to a lower value, at the cost of reduced performance of         the model</p></li>
+<li><p><strong>output_dir</strong> – string specific the path where the output of the model should be stored (containing)         the specific training command used and the saved version of the trained model.</p></li>
+<li><p><strong>tensorboard_dir</strong> – string specific the directory where the tensorboard log file should be stored.</p></li>
+<li><p><strong>do_eval</strong> – Boolean specifying whether or not to evaluate the performance of the model on a test set         after training.</p></li>
+<li><p><strong>num_epochs</strong> – int specifying for how many epochs the model should be trained.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -158,6 +327,13 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="multigate.html" class="btn btn-neutral float-left" title="Multigate Mixture of Experts Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -12,3 +12,4 @@ Docs
    models/csvdataset
    models/dataloader
    models/multigate
+   models/pretrainedbert
