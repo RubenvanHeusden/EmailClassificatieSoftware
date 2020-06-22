@@ -11,7 +11,7 @@ could be impossible on a device without a GPU or not enough GPU memory.
 class TestPretrainedBert(unittest.TestCase):
     def setUp(self) -> None:
         self.model = PretrainedBERT(path_to_data=ROOT_DIR+"/test_data/train.csv")
-        self.model.load_model(path_to_saved_model=ROOT_DIR + "/bert_model_for_toy_dataset")
+        self.model.load_model()
 
     def test_single_example(self):
         self.model.classify_from_strings("Dit is echt een ontzettend slechte film !")

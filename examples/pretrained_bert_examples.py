@@ -19,11 +19,14 @@ def main():
     model = PretrainedBERT(path_to_data=ROOT_DIR+"/test_data/train.csv")
 
     # Now that we have instantiated the PretrainedBERT model, we should start by loading the model weights
-    # and tokenizer settings from the the folder created when the model is initially trained. As this model
-    # has been pretrained on this dataset already, it already exists, it is the "bert_model_for_toy_dataset"
-    # folder
+    # and tokenizer settings from the the folder created when the model is initially trained. If
+    # you want to run this example with your own trained model you should give the 'path_to_model' the
+    # location of the folder containing the arguments needed for loading (these are produced after training
+    # the model).
+    # when no arguments are specified to load, a blank version of the model without fin-tuning is used,
+    # which is also the one we will use for this example.
 
-    model.load_model(path_to_saved_model=ROOT_DIR+"/bert_model_for_toy_dataset")
+    model.load_model()
 
     # Now that the model is loaded, we can do some classification with it on new datapoints, classify the
     # contents of a file, or score the model. Lets classify a small piece of text first.

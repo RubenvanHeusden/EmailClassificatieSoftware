@@ -176,7 +176,7 @@ class PretrainedBERT:
 
             return [self._class_labels[i] for i in predicted_classes]
 
-    def load_model(self, path_to_saved_model) -> None:
+    def load_model(self, path_to_saved_model: str = 'bert-base-dutch-cased') -> None:
         """
         Method that can be used to load a trained model. The PretrainedBert class saves models that
         are trained using 'train_from_files' automatically so there is no separate method for model saving.
