@@ -1,3 +1,5 @@
+import os
+import shutil
 import unittest
 from configurations import ROOT_DIR
 from models.multigatemodel import MultigateModel
@@ -41,8 +43,8 @@ class TestMultigateModel(unittest.TestCase):
         with self.assertRaises(AssertionError):
             self.classifier.load_model(name)
 
-
-
-
     def tearDown(self) -> None:
-        pass
+        if os.path.exists(ROOT_DIR+"/test_data/model.pt"):
+            os.remove(ROOT_DIR+"/test_data/model.pt")
+        if os.path.exists(ROOT_DIR+'/runs/'):
+            shutil.rmtree(ROOT_DIR+'/runs/')
