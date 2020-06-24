@@ -86,6 +86,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#training-a-simple-classifier-from-scratch">Training a simple classifier from scratch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#loading-and-saving-models">Loading and saving models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-fancy-with-confidence-scores">Getting fancy with confidence scores</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#final-notes">Final Notes</a></li>
 </ul>
 </li>
@@ -205,6 +206,20 @@ for saving the files than the other models in this package (joblib instead of py
 <p>Now if we would want to load this model up again we can simply create a TFIDFClassifier class again and load the saved version</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_classifier</span> <span class="o">=</span> <span class="n">TFIDFClassifier</span><span class="p">()</span>
 <span class="n">new_classifier</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;our_first_model.joblib&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-fancy-with-confidence-scores">
+<h2>Getting fancy with confidence scores<a class="headerlink" href="#getting-fancy-with-confidence-scores" title="Permalink to this headline">¶</a></h2>
+<p>The TF-IDF classifier is currently the only model supporting confidence scores. These scores basically indicate how much of the
+probility mass was assigned to the predicted class. This can be used to determine whether the model is confident enough to output
+a prediction, or that a human should look at the e-mail. currently the model outputs None for the class if the treshold is not met.</p>
+<p>To be able to use this functionality, the model should be initialized with <code class="docutils literal notranslate"><span class="pre">use_confidence=True</span></code>, after which the <code class="docutils literal notranslate"><span class="pre">confidence_threshold</span></code>
+parameter can be used to control the threshold for outputting predictions. Please note that the training dataset has to be significantly large
+for this to work, and  have at least 5 data points for each label in the dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_with_confidence</span> <span class="o">=</span> <span class="n">TFIDFClassifier</span><span class="p">(</span><span class="n">use_confidence</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">train_from_file</span><span class="p">(</span><span class="s2">&quot;path_to_a_big_dataset&quot;</span><span class="p">)</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">classify_from_file</span><span class="p">(</span><span class="s2">&quot;path_to_test_set&quot;</span><span class="p">,</span> <span class="n">confidence_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

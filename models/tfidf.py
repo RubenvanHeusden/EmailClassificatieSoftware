@@ -3,11 +3,13 @@
 # As can be read in the technical report. the model uses the parameters found to be best for the email classification
 # dataset.
 
+import numpy as np
 import pandas as pd
-from joblib import dump, load
 from sklearn.svm import LinearSVC
+from joblib import dump, load
 from typing import List, Any, Tuple
 from sklearn.pipeline import Pipeline
+from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 
@@ -31,23 +33,31 @@ class TFIDFClassifier:
 
     """
     def __init__(self, do_lowercase: bool = True, string_encoding: str = 'utf-8',
-                 custom_tokenizer=None, custom_preprocessor=None, n_grams=(1, 1), verbose_training: bool = False):
+                 custom_tokenizer=None, custom_preprocessor=None, n_grams=(1, 1), verbose_training: bool = False,
+                 use_confidence: bool = False):
         """
         :param do_lowercase: boolean specifying whether text should be automatically converted to lowercase
         :param string_encoding: specifying the encode to use when reading in text. default = 'utf-8'
         :param custom_tokenizer: if not None, a callable that takes string input and returns a list of tokens
         :param custom_preprocessor: of not None, a callable that takes string input and return a string \
         processed in some way. (see the examples folder for example use-cases)
-        :param n_grams: a tuple specifying the ngrams range used. default is ()
-
+        :param n_grams: a tuple specifying the ngrams range used. default is (1, 1)
+        :param use_confidence: boolean specifying whether to calculate confidence scores for outputs, this \
+        requires the classes in the training file to all have at least 5 examples and the confidence scores \
+        in the classify methods will still have to be set manually
         """
         self._name = "TFIDF"
+        if not use_confidence:
+            cls = LinearSVC(verbose=verbose_training)
+        else:
+            cls = CalibratedClassifierCV(LinearSVC(verbose=verbose_training))
+
         self.classifier = Pipeline([('tfidf', TfidfVectorizer(lowercase=do_lowercase,
                                                               encoding=string_encoding,
                                                               preprocessor=custom_preprocessor,
                                                               tokenizer=custom_tokenizer,
                                                               ngram_range=n_grams)),
-                                    ('svc', LinearSVC(verbose=verbose_training))])
+                                    ('svc', cls)])
         self.string_encoding = string_encoding
 
     def save_model(self, file_name: str) -> None:
@@ -119,12 +129,16 @@ class TFIDFClassifier:
         return None
 
     def classify_from_file(self, classification_data_path, text_col_name: str = "text", delimiter=",",
-                           quotechar='"') -> List[Any]:
+                           quotechar='"', confidence_threshold: float = 0.0) -> List[Any]:
         """
 
         classifies examples from a csv file with the trained classifier, where the column with the text
         to be classified is selected with the text_col_name parameter
 
+        :param confidence_threshold: float specifying the desired confidence when outputting a prediction. \
+        when not set to zero, will only return predictions when score > confidence_threshold, None otherwise. \
+        please note that using this threshold will slow down the classification speed of the algorithm \
+        the confidence_threshold is a probability and should therefore lie between 0 and 1.
         :param classification_data_path: string specifying the file that contains the \
         texts to be classified by the classifier
         :param text_col_name: string specifying the name of the column containing the mails \
@@ -135,25 +149,50 @@ class TFIDFClassifier:
         where each entry in the list is a prediction of the model
 
         """
+
+        assert 0.0 <= confidence_threshold < 1.0
+
         classification_data = pd.read_csv(classification_data_path, sep=delimiter, quotechar=quotechar)
         classification_data = classification_data.dropna()
         classification_x = classification_data[text_col_name].tolist()
-        return self.classifier.predict(classification_x)
 
-    def classify_from_strings(self, classification_data) -> List[Any]:
+        predictions = self.classifier.predict(classification_x)
+
+        if confidence_threshold > 0.0:
+            scores = np.max(self.classifier.predict_proba(classification_x), axis=1)
+            predictions = [item if score > confidence_threshold else None for item,
+                                                                              score in zip(predictions, scores)]
+
+        return predictions
+
+    def classify_from_strings(self, classification_data, confidence_threshold: float = 0.0) -> List[Any]:
         """
 
         classifies a single example or a list of examples with the trained classifier
 
+        :param confidence_threshold: float specifying the desired confidence when outputting a prediction. \
+        when not set to zero, will only return predictions when score > confidence_threshold, None otherwise. \
+        please note that using this threshold will slow down the classification speed of the algorithm \
+        the confidence_threshold is a probability and should therefore lie between 0 and 1.
         :param classification_data: string or list containing the example(s) for classification. \
         the acceptance of a string to signify a single example is done in favor of manually putting a single \
         example into a list.
         :return: A list of strings with the same length as the input list with the predictions of the model
-
         """
+
+        assert 0.0 <= confidence_threshold < 1.0
+
         if isinstance(classification_data, str):
             classification_data = [classification_data]
-        return self.classifier.predict(classification_data)
+
+        predictions = self.classifier.predict(classification_data)
+
+        if confidence_threshold > 0.0:
+            scores = np.max(self.classifier.predict_proba(classification_data), axis=1)
+            predictions = [item if score > confidence_threshold else None for item,
+                                                                      score in zip(predictions, scores)]
+
+        return predictions
 
     def score(self, test_data_path, text_col_name: str = "text", label_col_name: str = "label",
               delimiter=",", quotechar='"', verbose=1, class_averaging: str = "weighted") -> None:

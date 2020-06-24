@@ -69,6 +69,22 @@ Now if we would want to load this model up again we can simply create a TFIDFCla
 	new_classifier = TFIDFClassifier()
 	new_classifier.load_model('our_first_model.joblib')
 
+Getting fancy with confidence scores
+====================================
+
+The TF-IDF classifier is currently the only model supporting confidence scores. These scores basically indicate how much of the 
+probility mass was assigned to the predicted class. This can be used to determine whether the model is confident enough to output
+a prediction, or that a human should look at the e-mail. currently the model outputs None for the class if the treshold is not met.
+
+To be able to use this functionality, the model should be initialized with ``use_confidence=True``, after which the ``confidence_threshold``
+parameter can be used to control the threshold for outputting predictions. Please note that the training dataset has to be significantly large
+for this to work, and  have at least 5 data points for each label in the dataset.
+
+.. code-block:: python
+	
+	classifier_with_confidence = TFIDFClassifier(use_confidence=True)
+	classifier.train_from_file("path_to_a_big_dataset")
+	classifier.classify_from_file("path_to_test_set", confidence_threshold=0.5)
 
 
 Final Notes

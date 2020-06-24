@@ -45,16 +45,6 @@ class TestTFIDFClassifier(unittest.TestCase):
         self.classifier.save_model(ROOT_DIR+"/test_data/model.joblib")
         self.classifier.load_model(ROOT_DIR+"/test_data/model.joblib")
 
-    def test_inccorect_model_name_save(self):
-        name = "model.jobli"
-        with self.assertRaises(AssertionError):
-            self.classifier.save_model(name)
-
-    def test_incorrect_model_name_load(self):
-        name = "model.jobli"
-        with self.assertRaises(AssertionError):
-            self.classifier.load_model(name)
-
     def tearDown(self) -> None:
         if os.path.exists(ROOT_DIR+"/test_data/model.joblib"):
             os.remove(ROOT_DIR+"/test_data/model.joblib")
